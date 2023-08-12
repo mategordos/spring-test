@@ -1,36 +1,21 @@
-import logo from './logo.svg';
+import React, { Component } from 'react';
 import './App.css';
-import {Component} from "react";
+import Home from './Home';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import BloggerList from "./BloggerList";
+import BloggerEdit from "./BloggerEdit";
 
 class App extends Component {
-  state = {
-    bloggers: []
-  };
-
-  async componentDidMount() {
-    const response = await fetch('/bloggers');
-    const body = await response.json();
-    this.setState({bloggers: body});
-  }
-
   render() {
-    const {bloggers} = this.state;
     return (
-        <div className="App">
-          <header className="App-header">
-            <img src={logo} className="App-logo" alt="logo" />
-            <div className="App-intro">
-              <h2>Bloggers</h2>
-              {bloggers.map(blogger =>
-                  <div key={blogger.id}>
-                    {blogger.userName} ({blogger.email})
-                  </div>
-              )}
-            </div>
-          </header>
-        </div>
-    );
+        <Router>
+          <Switch>
+            <Route path='/' exact={true} component={Home}/>
+            <Route path='/bloggers' exact={true} component={BloggerList}/>
+            <Route path='/bloggers/:id' component={BloggerEdit}/>
+          </Switch>
+        </Router>
+    )
   }
 }
-
 export default App;
