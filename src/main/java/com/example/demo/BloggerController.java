@@ -1,5 +1,7 @@
 package com.example.demo;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,6 +14,7 @@ import java.util.List;
 public class BloggerController {
 
     private final BloggerRepository bloggerRepository;
+    Logger logger = LoggerFactory.getLogger(DemoApplication.class);
 
     public BloggerController(BloggerRepository bloggerRepository) {
         this.bloggerRepository = bloggerRepository;
@@ -29,12 +32,18 @@ public class BloggerController {
 
     @PostMapping
     public ResponseEntity createBlogger(@RequestBody Blogger blogger) throws URISyntaxException {
+        logger.debug("Received create blogger request with params: {}", blogger);
+
         Blogger savedBlogger = bloggerRepository.save(blogger);
+
+        logger.debug("Create new blogger: {}", savedBlogger);
         return ResponseEntity.created(new URI("/bloggers/" + savedBlogger.getId())).body(savedBlogger);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity updateBlogger(@PathVariable Long id, @RequestBody Blogger blogger) {
+        logger.debug("Received update blogger request with params: {}", blogger);
+
         Blogger currentBlogger = bloggerRepository.findById(id).orElseThrow(RuntimeException::new);
         currentBlogger.setUserName(blogger.getUserName());
         currentBlogger.setPassword(blogger.getPassword());
@@ -47,6 +56,9 @@ public class BloggerController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity deleteBlogger(@PathVariable Long id) {
+        logger.debug("Received create delete request with id: {}", id);
+
+
         bloggerRepository.deleteById(id);
         return ResponseEntity.ok().build();
     }
