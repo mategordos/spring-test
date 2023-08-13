@@ -5,12 +5,16 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Setter
 @Getter
 @Entity
 @Table(name = "blogger")
+@ToString
+@NoArgsConstructor
 public class Blogger {
 
     private @Id @GeneratedValue Long id;
@@ -19,8 +23,6 @@ public class Blogger {
     private String password;
     private String avatar;
     private String email;
-
-    protected Blogger() {}
 
     public Blogger(String userName, String password, String avatar, String email){
         this.userName = userName;
