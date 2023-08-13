@@ -11,6 +11,12 @@ class BloggerList extends Component {
         this.remove = this.remove.bind(this);
     }
 
+    componentDidMount() {
+        fetch('/bloggers')
+            .then(response => response.json())
+            .then(data => this.setState({bloggers: data}));
+    }
+
     async remove(id) {
         await fetch(`/bloggers/${id}`, {
             method: 'DELETE',
@@ -33,7 +39,7 @@ class BloggerList extends Component {
 
         const bloggerList = bloggers.map(blogger => {
             return <tr key={blogger.id}>
-                <td style={{whiteSpace: 'nowrap'}}>{blogger.name}</td>
+                <td>{blogger.username}</td>
                 <td>{blogger.password}</td>
                 <td>{blogger.email}</td>
                 <td>{blogger.avatar}</td>

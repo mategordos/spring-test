@@ -14,6 +14,7 @@ import lombok.Setter;
 public class Blogger {
 
     private @Id @GeneratedValue Long id;
+
     private String userName;
     private String password;
     private String avatar;
