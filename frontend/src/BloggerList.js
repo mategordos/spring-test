@@ -39,7 +39,7 @@ class BloggerList extends Component {
 
         const bloggerList = bloggers.map(blogger => {
             return <tr key={blogger.id}>
-                <td>{blogger.username}</td>
+                <td>{blogger.userName}</td>
                 <td>{blogger.password}</td>
                 <td>{blogger.email}</td>
                 <td>{blogger.avatar}</td>
