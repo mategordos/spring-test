@@ -56,7 +56,7 @@ class BloggerEdit extends Component {
 
     render() {
         const {item} = this.state;
-        const title = <h2>{item.id ? 'Edit Client' : 'Add Client'}</h2>;
+        const title = <h2>{item.id ? 'Edit Blogger' : 'Add Blogger'}</h2>;
 
         return <div>
             <AppNavbar/>
@@ -85,7 +85,7 @@ class BloggerEdit extends Component {
                     </FormGroup>
                     <FormGroup>
                         <Button color="primary" type="submit">Save</Button>{' '}
-                        <Button color="secondary" tag={Link} to="/clients">Cancel</Button>
+                        <Button color="secondary" tag={Link} to="/bloggers">Cancel</Button>
                     </FormGroup>
                 </Form>
             </Container>
