@@ -1,11 +1,12 @@
-import React, { Component } from 'react';
+import React, {} from 'react';
 import './App.css';
 import AppNavbar from './AppNavbar';
 import { Link } from 'react-router-dom';
 import { Button, Container } from 'reactstrap';
 
-class Home extends Component {
-    render() {
+
+
+function ToBloggers() {
         return (
             <div>
                 <AppNavbar/>
@@ -14,6 +15,11 @@ class Home extends Component {
                 </Container>
             </div>
         );
-    }
+
+
 }
-export default Home;
+export default function Home(){
+    return (
+        <ToBloggers/>
+    )
+}

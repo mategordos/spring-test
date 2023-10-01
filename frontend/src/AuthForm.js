@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link, withRouter } from 'react-router-dom';
 import { Button, Container, Form, FormGroup, Input, Label } from 'reactstrap';
 import AppNavbar from "./AppNavbar";
 
@@ -38,7 +37,7 @@ class AuthForm extends Component {
                         <Label for="userName">Name</Label>
                         <Input type="text" name="userName" id="userName" autoComplete="name" placeholder="Your Username"/>
                     </FormGroup>
-                    }
+                    } 
                     <FormGroup>
                         <Label for="email">Email</Label>
                         <Input type="email" name="email" id="email" placeholder="yourself@example.com"/>

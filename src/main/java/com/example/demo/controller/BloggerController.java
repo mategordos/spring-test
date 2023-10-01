@@ -1,5 +1,8 @@
-package com.example.demo;
+package com.example.demo.controller;
 
+import com.example.demo.Blogger;
+import com.example.demo.repository.BloggerRepository;
+import com.example.demo.DemoApplication;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +15,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/bloggers")
 public class BloggerController {
+
 
     private final BloggerRepository bloggerRepository;
     Logger logger = LoggerFactory.getLogger(DemoApplication.class);

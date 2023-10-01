@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { } from 'react';
 import './App.css';
 import Home from './Home';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
@@ -6,8 +6,10 @@ import BloggerList from "./BloggerList";
 import BloggerEdit from "./BloggerEdit";
 import AuthForm from "./AuthForm";
 
-class App extends Component {
-  render() {
+
+
+function App() {
+
     return (
         <Router>
           <Switch>
@@ -18,6 +20,5 @@ class App extends Component {
           </Switch>
         </Router>
     )
-  }
 }
 export default App;
