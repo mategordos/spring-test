@@ -14,11 +14,12 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Table(name = "categories")
+@SequenceGenerator(name = "category_seq", sequenceName = "category_sequence", allocationSize = 1)
 public class Category {
 
-
-    private @Id
-    @GeneratedValue Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "category_seq")
+    private  Long id;
 
     @Column(unique = true)
     public String categoryName;

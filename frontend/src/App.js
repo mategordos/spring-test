@@ -1,6 +1,6 @@
 import React, { } from 'react';
 import './App.css';
-import Home from './Home';
+import Home from './home/Home';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import BloggerList from "./BloggerList";
 import BloggerEdit from "./BloggerEdit";

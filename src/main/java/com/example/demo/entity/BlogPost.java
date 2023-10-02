@@ -12,10 +12,13 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Table(name = "blogposts")
+@SequenceGenerator(name = "blogpost_seq", sequenceName = "blogpost_sequence", allocationSize = 1)
 public class BlogPost {
 
-    private @Id
-    @GeneratedValue Long blogPostId;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "blogpost_seq")
+    private Long blogPostId;
 
     private String title;
 

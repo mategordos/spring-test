@@ -15,8 +15,6 @@ public class CategoryService {
     @Autowired
     private CategoryRepository categoryRepository;
 
-
-
     public Category createCategory(CategoryDto categoryDto) {
         Category category = new Category();
         category.setCategoryName(categoryDto.getCategoryName());

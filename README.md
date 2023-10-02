@@ -36,3 +36,4 @@ oauth2-t hozzádobni? spring securitynek elvileg vannak hozzá jó cuccai, és j
 
 usernek lehetnének bookmarkolt cikkek, amik valahol össze vannak gyűjtve
 Ha blogger profiljára kattolsz, lehetne egy dashboard cikkekkel?
+

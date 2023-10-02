@@ -1,30 +1,32 @@
-import React, {Component} from 'react';
-import {Nav, Navbar, NavbarBrand, NavItem} from 'reactstrap';
-import {Link} from 'react-router-dom';
+import React, { useState } from 'react';
+import { Nav, Navbar, NavbarBrand, NavItem } from 'reactstrap';
+import { Link } from 'react-router-dom';
+import SearchBar from "./SearchBar";
 
-export default class AppNavbar extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {isOpen: false};
-        this.toggle = this.toggle.bind(this);
-    }
+function HomeNavItem() {
+    return(
+        <NavItem>
+            <NavbarBrand className="m-lg-3" tag={Link} to="/">Home</NavbarBrand>
+        </NavItem>
+    )
+}
 
-    toggle() {
-        this.setState({
-            isOpen: !this.state.isOpen
-        });
-    }
+function SignUpNavItem () {
+    return(
+        <NavItem className="ml-auto">
+            <NavbarBrand tag={Link} to="/auth">Sign Up</NavbarBrand>
+        </NavItem>
+    )
+}
 
-    render() {
-        return <Navbar color="dark" dark expand="md" className="mb-2">
+export default function AppNavbar() {
+    return (
+        <Navbar color="dark" dark expand="md" className="mb-2">
             <Nav className="container-fluid">
-                <NavItem>
-                    <NavbarBrand className="m-lg-3" tag={Link} to="/">Home</NavbarBrand>
-                </NavItem>
-                <NavItem className="ml-auto">
-                    <NavbarBrand tag={Link} to="/auth">Sign Up</NavbarBrand>
-                </NavItem>
+                <HomeNavItem />
+                <SearchBar/>
+                <SignUpNavItem />
             </Nav>
-        </Navbar>;
-    }
+        </Navbar>
+    );
 }
