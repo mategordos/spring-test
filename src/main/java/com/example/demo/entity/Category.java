@@ -19,11 +19,11 @@ public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "category_seq")
-    private  Long id;
+    private Long id;
 
     @Column(unique = true)
     public String categoryName;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "categories")
     public Set<BlogPost> blogPosts = new HashSet<>();
 }

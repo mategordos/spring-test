@@ -22,7 +22,13 @@ public class BlogPost {
 
     private String title;
 
+
     @ManyToMany
+    @JoinTable(
+            name = "blogpost_categories",
+            joinColumns = @JoinColumn(name = "blogpost_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id")
+    )
     private Set<Category> categories;
 
     private Timestamp creationDate = new Timestamp(System.currentTimeMillis());

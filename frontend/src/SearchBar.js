@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Input, Button } from 'reactstrap';
+import {Input, Button, NavItem} from 'reactstrap';
 
 function Search({ onSearch }) {
     const [searchTerm, setSearchTerm] = useState('');
@@ -14,7 +14,7 @@ function Search({ onSearch }) {
     };
 
     return (
-        <div className="d-flex">
+        <NavItem className="m-lg-auto w-50">
             <Input
                 type="text"
                 placeholder="Search on insight.."
@@ -22,7 +22,7 @@ function Search({ onSearch }) {
                 onChange={(e) => setSearchTerm(e.target.value)}
                 onKeyDown={handleKeyPress}
             />
-        </div>
+        </NavItem>
     );
 }
 

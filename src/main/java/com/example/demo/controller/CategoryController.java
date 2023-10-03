@@ -30,7 +30,7 @@ public class CategoryController {
         return ResponseEntity.ok(blogPosts);
     }
 
-    @GetMapping
+    @GetMapping("")
     public ResponseEntity<Set<Category>> getAllCategories() {
         Set<Category> categories = categoryService.getAllCategories();
         return ResponseEntity.ok(categories);

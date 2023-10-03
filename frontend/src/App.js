@@ -2,9 +2,8 @@ import React, { } from 'react';
 import './App.css';
 import Home from './home/Home';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import BloggerList from "./BloggerList";
-import BloggerEdit from "./BloggerEdit";
 import AuthForm from "./AuthForm";
+import PostCreator from "./postcreator/PostCreator";
 
 
 
@@ -14,9 +13,8 @@ function App() {
         <Router>
           <Switch>
             <Route path='/' exact={true} component={Home}/>
-            <Route path='/bloggers' exact={true} component={BloggerList}/>
-            <Route path='/bloggers/:id' component={BloggerEdit}/>
             <Route path='/auth' component={AuthForm}/>
+            <Route path='/create' component={PostCreator}/>
           </Switch>
         </Router>
     )
