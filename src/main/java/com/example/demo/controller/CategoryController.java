@@ -24,6 +24,13 @@ public class CategoryController {
         return new ResponseEntity<>(createdCategory, HttpStatus.CREATED);
     }
 
+    @GetMapping("{categoryId}")
+    public ResponseEntity<CategoryDto> getCategoryById(@PathVariable Long categoryId){
+        CategoryDto categoryDto = categoryService.getCategoryById(categoryId);
+        return ResponseEntity.ok(categoryDto);
+
+    }
+
     @GetMapping("/{categoryId}/blogposts")
     public ResponseEntity<Set<BlogPost>> getBlogPostsByCategory(@PathVariable Long categoryId) {
         Set<BlogPost> blogPosts = categoryService.getBlogPostsByCategoryId(categoryId);

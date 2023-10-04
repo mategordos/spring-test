@@ -26,7 +26,7 @@ function PostBodyItem() {
     return (
         <Row className="pt-3 pb-3">
             <Col>
-                <Input type="textarea" placeholder="Enter your blog post content" rows="7" style={{ minHeight: '200px', overflowY: 'scroll'}}/>
+                <Input type="textarea" placeholder="Share your insights with others.." rows="7" style={{ minHeight: '200px', overflowY: 'scroll'}}/>
             </Col>
         </Row>
     )

@@ -22,6 +22,16 @@ public class CategoryService {
         return categoryRepository.save(category);
     }
 
+    public CategoryDto getCategoryById(Long categoryId) {
+        Category category = categoryRepository.findById(categoryId)
+                .orElseThrow(() -> new RuntimeException("Category not found with ID: "+ categoryId));
+        CategoryDto categoryDto = new CategoryDto();
+        categoryDto.setCategoryName(category.getCategoryName());
+        categoryDto.setId(category.getId());
+        categoryDto.setBlogPosts(category.getBlogPosts());
+        return categoryDto;
+    }
+
     public Set<BlogPost> getBlogPostsByCategoryId(Long categoryId) {
         Category category = categoryRepository.findById(categoryId)
                 .orElseThrow(() -> new RuntimeException("Category not found with ID: " + categoryId));
