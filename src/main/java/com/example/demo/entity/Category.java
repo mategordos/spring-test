@@ -24,6 +24,6 @@ public class Category {
     @Column(unique = true)
     public String categoryName;
 
-    @ManyToMany(mappedBy = "categories")
+    @OneToMany(mappedBy = "category")
     public Set<BlogPost> blogPosts = new HashSet<>();
 }

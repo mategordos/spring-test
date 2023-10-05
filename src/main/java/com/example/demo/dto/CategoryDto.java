@@ -17,14 +17,11 @@ public class CategoryDto {
 
     private String categoryName;
 
-    private Set<BlogPost> blogPosts = new HashSet<>();
-
     @Override
     public String toString() {
         return "CategoryDto{" +
                 "id=" + id +
                 ", categoryName='" + categoryName + '\'' +
-                ", blogPosts=" + blogPosts +
                 '}';
     }
 }

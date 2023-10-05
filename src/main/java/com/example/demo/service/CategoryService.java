@@ -15,20 +15,19 @@ public class CategoryService {
     @Autowired
     private CategoryRepository categoryRepository;
 
-    public Category createCategory(CategoryDto categoryDto) {
+    public CategoryDto createCategory(CategoryDto categoryDto) {
         Category category = new Category();
         category.setCategoryName(categoryDto.getCategoryName());
-
-        return categoryRepository.save(category);
+        categoryRepository.save(category);
+        return categoryDto;
     }
 
     public CategoryDto getCategoryById(Long categoryId) {
         Category category = categoryRepository.findById(categoryId)
                 .orElseThrow(() -> new RuntimeException("Category not found with ID: "+ categoryId));
         CategoryDto categoryDto = new CategoryDto();
-        categoryDto.setCategoryName(category.getCategoryName());
+        categoryDto.setCategoryName(category.categoryName);
         categoryDto.setId(category.getId());
-        categoryDto.setBlogPosts(category.getBlogPosts());
         return categoryDto;
     }
 

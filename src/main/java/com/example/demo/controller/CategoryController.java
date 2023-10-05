@@ -18,10 +18,10 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
-    @PostMapping("/create")
-    public ResponseEntity<Category> createCategory(@RequestBody CategoryDto categoryDto) {
-        Category createdCategory = categoryService.createCategory(categoryDto);
-        return new ResponseEntity<>(createdCategory, HttpStatus.CREATED);
+    @PostMapping("")
+    public ResponseEntity<CategoryDto> createCategory(@RequestBody CategoryDto categoryDto) {
+        CategoryDto createdCategoryDto = categoryService.createCategory(categoryDto);
+        return new ResponseEntity<>(createdCategoryDto, HttpStatus.CREATED);
     }
 
     @GetMapping("{categoryId}")

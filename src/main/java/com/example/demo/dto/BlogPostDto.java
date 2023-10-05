@@ -16,16 +16,12 @@ public class BlogPostDto {
 
     private String title;
 
-    private Set<Category> categories;
-
-    private Timestamp lastUpdated;
-
+    private Long categoryId;
     @Override
     public String toString() {
         return "BlogPostDto{" +
                 ", title='" + title + '\'' +
-                ", categories=" + categories +
-                ", lastUpdated=" + lastUpdated +
+                ", categoryId=" + categoryId +
                 '}';
     }
 }

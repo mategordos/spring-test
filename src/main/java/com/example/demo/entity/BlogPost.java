@@ -18,18 +18,13 @@ public class BlogPost {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "blogpost_seq")
-    private Long blogPostId;
+    private Long id;
 
     private String title;
 
 
-    @ManyToMany
-    @JoinTable(
-            name = "blogpost_categories",
-            joinColumns = @JoinColumn(name = "blogpost_id"),
-            inverseJoinColumns = @JoinColumn(name = "category_id")
-    )
-    private Set<Category> categories;
+    @ManyToOne
+    private Category category;
 
     private Timestamp creationDate = new Timestamp(System.currentTimeMillis());
 

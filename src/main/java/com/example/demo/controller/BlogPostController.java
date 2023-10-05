@@ -18,28 +18,35 @@ public class BlogPostController {
     @Autowired
     private BlogPostService blogPostService;
 
-    @PostMapping("/create")
-    public ResponseEntity createBlogPost(@RequestBody BlogPostDto blogPostDto) throws URISyntaxException {
-        BlogPost createdBlogPost = blogPostService.createBlogPost(blogPostDto);
-        return ResponseEntity.created(new URI("/blogposts/" + createdBlogPost.getBlogPostId())).body(createdBlogPost);
+    //done
+    @PostMapping("")
+    public ResponseEntity<BlogPostDto> createBlogPost(@RequestBody BlogPostDto blogPostDto) throws URISyntaxException {
+        Long blogPostId = blogPostService.createBlogPost(blogPostDto);
+        return ResponseEntity.created(new URI("/blogposts/" + blogPostId)).body(blogPostDto);
     }
 
+
+    //done
     @GetMapping("")
-    public Set<BlogPost> getAllBlogPosts(){
+    public Set<BlogPostDto> findAllBlogPosts(){
         return blogPostService.findAllBlogPosts();
     }
 
+    //done
     @GetMapping("/{blogPostId}")
-    public BlogPost getBlogger(@PathVariable Long blogPostId) {
-        return blogPostService.findBlogPostById(blogPostId);
+    public ResponseEntity<BlogPostDto> findBlogPostById(@PathVariable Long blogPostId) {
+        BlogPostDto blogPostDto = blogPostService.findBlogPostById(blogPostId);
+        return ResponseEntity.ok(blogPostDto);
     }
 
     @PutMapping("/{blogPostId}")
-    public ResponseEntity<BlogPost> editBlogPost(@PathVariable Long blogPostId, @RequestBody BlogPostDto updatedBlogPostDto) {
-        BlogPost updatedBlogPost = blogPostService.updateBlogPost(blogPostId, updatedBlogPostDto);
-        return ResponseEntity.ok(updatedBlogPost);
+    public ResponseEntity<BlogPostDto> editBlogPost(@PathVariable Long blogPostId, @RequestBody BlogPostDto updatedBlogPostDto) {
+        BlogPostDto blogPostDto = blogPostService.updateBlogPost(blogPostId, updatedBlogPostDto);
+        return ResponseEntity.ok(blogPostDto);
     }
 
+
+    //done
     @DeleteMapping("/{blogPostId}")
     public ResponseEntity<?> deleteBlogPost(@PathVariable Long blogPostId) {
         blogPostService.deleteBlogPostById(blogPostId);
