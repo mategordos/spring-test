@@ -1,9 +1,11 @@
 package com.example.demo.controller;
 
+import com.example.demo.aws.S3Service;
 import com.example.demo.dto.BlogPostDto;
 import com.example.demo.entity.BlogPost;
 import com.example.demo.service.BlogPostService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,11 +20,13 @@ public class BlogPostController {
     @Autowired
     private BlogPostService blogPostService;
 
+    @Autowired
+    private S3Service s3;
     //done
     @PostMapping("")
     public ResponseEntity<BlogPostDto> createBlogPost(@RequestBody BlogPostDto blogPostDto) throws URISyntaxException {
-        Long blogPostId = blogPostService.createBlogPost(blogPostDto);
-        return ResponseEntity.created(new URI("/blogposts/" + blogPostId)).body(blogPostDto);
+        blogPostService.createBlogPost(blogPostDto);
+        return new ResponseEntity<>(blogPostDto, HttpStatus.CREATED);
     }
 
 

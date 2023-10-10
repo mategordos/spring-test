@@ -1,9 +1,12 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.FieldDefaults;
+
 import java.sql.Timestamp;
 import java.util.Set;
 
@@ -12,25 +15,28 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Table(name = "blogposts")
+@FieldDefaults(level = AccessLevel.PRIVATE)
 @SequenceGenerator(name = "blogpost_seq", sequenceName = "blogpost_sequence", allocationSize = 1)
 public class BlogPost {
 
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "blogpost_seq")
-    private Long id;
+    Long id;
 
-    private String title;
-
+    String title;
 
     @ManyToOne
-    private Category category;
+    User author;
 
-    private Timestamp creationDate = new Timestamp(System.currentTimeMillis());
+    @ManyToOne
+    Category category;
 
-    private Timestamp lastUpdated = new Timestamp(System.currentTimeMillis());
+    Timestamp creationDate = new Timestamp(System.currentTimeMillis());
 
-    private int score = 0;
+    Timestamp lastUpdated = new Timestamp(System.currentTimeMillis());
+
+    int score = 0;
 
 
 

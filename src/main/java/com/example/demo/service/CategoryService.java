@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.dto.BlogPostDto;
 import com.example.demo.dto.CategoryDto;
 import com.example.demo.entity.BlogPost;
 import com.example.demo.entity.Category;
@@ -15,6 +16,8 @@ public class CategoryService {
     @Autowired
     private CategoryRepository categoryRepository;
 
+
+    //done
     public CategoryDto createCategory(CategoryDto categoryDto) {
         Category category = new Category();
         category.setCategoryName(categoryDto.getCategoryName());
@@ -26,15 +29,27 @@ public class CategoryService {
         Category category = categoryRepository.findById(categoryId)
                 .orElseThrow(() -> new RuntimeException("Category not found with ID: "+ categoryId));
         CategoryDto categoryDto = new CategoryDto();
-        categoryDto.setCategoryName(category.categoryName);
+        categoryDto.setCategoryName(category.getCategoryName());
         categoryDto.setId(category.getId());
         return categoryDto;
     }
 
-    public Set<BlogPost> getBlogPostsByCategoryId(Long categoryId) {
+    public Set<BlogPostDto> getBlogPostsByCategoryId(Long categoryId) {
         Category category = categoryRepository.findById(categoryId)
                 .orElseThrow(() -> new RuntimeException("Category not found with ID: " + categoryId));
-        return category.getBlogPosts();
+        Set<BlogPost> blogPosts = new HashSet<>(category.getBlogPosts());
+        Set<BlogPostDto> blogPostDtos = new HashSet<>();
+        for (BlogPost blogPost : blogPosts) {
+            BlogPostDto blogPostDto = new BlogPostDto();
+            blogPostDto.setCategoryId(blogPost.getCategory().getId());
+            blogPostDto.setTitle(blogPost.getTitle());
+            // Set other properties of BlogPostDto as needed
+
+            // Add the BlogPostDto to the set
+            blogPostDtos.add(blogPostDto);
+        }
+
+        return blogPostDtos;
     }
 
     public void deleteCategoryById(Long categoryId) {
@@ -45,7 +60,20 @@ public class CategoryService {
         categoryRepository.deleteById(categoryId);
     }
 
-    public Set<Category> getAllCategories() {
-       return new HashSet<>(categoryRepository.findAll()) ;
+    public Set<CategoryDto> getAllCategories() {
+        Set<CategoryDto> categoryDtos = new HashSet<>();
+        Set<Category> categories = new HashSet<>(categoryRepository.findAll());
+
+        for (Category category : categories) {
+            CategoryDto categoryDto = new CategoryDto();
+            categoryDto.setId(category.getId());
+            categoryDto.setCategoryName(category.getCategoryName());
+            // Set other properties of BlogPostDto as needed
+
+            // Add the BlogPostDto to the set
+            categoryDtos.add(categoryDto);
+        }
+
+        return categoryDtos;
     }
 }

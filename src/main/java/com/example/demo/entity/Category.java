@@ -1,9 +1,11 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.FieldDefaults;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -14,16 +16,17 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Table(name = "categories")
+@FieldDefaults(level = AccessLevel.PRIVATE)
 @SequenceGenerator(name = "category_seq", sequenceName = "category_sequence", allocationSize = 1)
 public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "category_seq")
-    private Long id;
+    Long id;
 
     @Column(unique = true)
-    public String categoryName;
+    String categoryName;
 
     @OneToMany(mappedBy = "category")
-    public Set<BlogPost> blogPosts = new HashSet<>();
+    Set<BlogPost> blogPosts = new HashSet<>();
 }
