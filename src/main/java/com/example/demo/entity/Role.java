@@ -9,6 +9,7 @@ import lombok.experimental.FieldDefaults;
 @Getter
 @Setter
 @NoArgsConstructor
+@Table(name = "roles")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @SequenceGenerator(name = "role_seq", sequenceName = "role_sequence", allocationSize = 1)
 public class Role {
@@ -16,6 +17,7 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "role_seq")
     Long id;
 
+    @Column(unique = true)
     @Enumerated(EnumType.STRING)
     RoleName roleName;
 

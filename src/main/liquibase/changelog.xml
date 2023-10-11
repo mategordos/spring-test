@@ -1,0 +1,77 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.0.xsd">
+
+    <changeSet id="createTableUsers" author="mategordos">
+        <sql>
+            CREATE TABLE users (
+                                   id SERIAL PRIMARY KEY,
+                                   username VARCHAR(255) UNIQUE NOT NULL,
+                                   password VARCHAR(255) NOT NULL,
+                                   email VARCHAR(255) UNIQUE NOT NULL
+            );
+        </sql>
+    </changeSet>
+
+    <changeSet id="createTableRoles" author="mategordos">
+        <sql>
+            CREATE TABLE roles (
+                                   id SERIAL PRIMARY KEY,
+                                   role_name VARCHAR(255) UNIQUE NOT NULL
+            );
+        </sql>
+    </changeSet>
+
+    <changeSet id="createTableCategories" author="mategordos">
+        <sql>
+            CREATE TABLE categories (
+                                        id SERIAL PRIMARY KEY,
+                                        category_name VARCHAR(255) UNIQUE NOT NULL
+            );
+        </sql>
+    </changeSet>
+
+    <changeSet id="createTableBlogposts" author="mategordos">
+        <sql>
+            CREATE TABLE blogposts (
+                                       id SERIAL PRIMARY KEY,
+                                       title VARCHAR(255),
+                                       author_id BIGINT REFERENCES users(id),
+                                       category_id BIGINT REFERENCES categories(id),
+                                       creation_date TIMESTAMP,
+                                       last_updated TIMESTAMP,
+                                       score INT
+                -- Add other columns as needed
+            );
+        </sql>
+    </changeSet>
+
+    <changeSet id="insertCategories" author="mategordos">
+        <sql>
+            INSERT INTO Categories (id, category_name) VALUES (1, 'music');
+            INSERT INTO Categories (id, category_name) VALUES (2, 'gaming');
+            INSERT INTO Categories (id, category_name) VALUES (3, 'design');
+            INSERT INTO Categories (id, category_name) VALUES (4, 'sports');
+            INSERT INTO Categories (id, category_name) VALUES (5, 'news');
+            INSERT INTO Categories (id, category_name) VALUES (6, 'social');
+            INSERT INTO Categories (id, category_name) VALUES (7, 'tech');
+        </sql>
+    </changeSet>
+
+
+    <!-- Insert roles -->
+    <changeSet id="insertRoles" author="mategordos">
+        <sql>
+            INSERT INTO Roles (id, role_name) VALUES (1, 'ADMIN');
+            INSERT INTO Roles (id, role_name) VALUES (2, 'BLOGGER');
+        </sql>
+    </changeSet>
+
+    <!-- Insert admin user -->
+    <changeSet id="insertAdminUser" author="mategordos">
+        <sql>
+            INSERT INTO Users (id, username, password, email, roles) VALUES (1, 'admin', 'encodedAdminPassword', 'admin@gmail.com', ADMIN);
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>
