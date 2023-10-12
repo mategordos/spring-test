@@ -29,7 +29,7 @@
         Long id;
 
         @Column(unique = true)
-        String username;
+        String name;
 
         String password;
 
@@ -43,13 +43,17 @@
         Set<Role>roles ;
 
 
-        public User (String username, String email , String password , Set<Role> roles) {
-            this.username = username;
+        public User (String name, String email , String password , Set<Role> roles) {
+            this.name = name;
             this.email= email ;
             this.password=password ;
             this.roles=roles ;}
 
 
+        @Override
+        public String getUsername() {
+            return email;
+        }
 
         @Override
         public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -58,7 +58,7 @@ public class UserService {
         else
         { User user = new User();
             user.setEmail(registrationDto.getEmail());
-            user.setUsername(registrationDto.getUsername());
+            user.setName(registrationDto.getName());
             user.setPassword(passwordEncoder.encode(registrationDto.getPassword()));
             Role role = roleRepository.findByRoleName(RoleName.BLOGGER);
             user.setRoles(Collections.singleton(role));
@@ -81,7 +81,7 @@ public class UserService {
         User user = userRepository.findByEmail(authentication.getName()).orElseThrow(() -> new UsernameNotFoundException("User not found."));
         Set<String> rolesNames = new HashSet<>();
         user.getRoles().forEach(r-> rolesNames.add(r.getRoleName()));
-        String token = jwtUtilities.generateToken(user.getUsername(),rolesNames);
+        String token = jwtUtilities.generateToken(user.getName(),rolesNames);
         return token;
     }
 

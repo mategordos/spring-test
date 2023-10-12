@@ -5,9 +5,13 @@ import com.example.demo.entity.BlogPost;
 import com.example.demo.entity.Category;
 import com.example.demo.repository.BlogPostRepository;
 import com.example.demo.repository.CategoryRepository;
+import com.example.demo.repository.UserRepository;
+import com.example.demo.security.JwtUtilities;
 import lombok.extern.log4j.Log4j;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
@@ -23,6 +27,10 @@ public class BlogPostService {
 
     @Autowired
     private CategoryRepository categoryRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+
 
 //done
     public BlogPostDto findBlogPostById(Long blogPostId) {
@@ -60,6 +68,9 @@ public class BlogPostService {
                 .orElseThrow(() -> new RuntimeException("Category not found with ID"));
         blogPost.setTitle(blogPostDto.getTitle());
         blogPost.setCategory(category);
+//        blogPost.setAuthor(userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName())
+//                .orElseThrow(() -> new UsernameNotFoundException("User not found")));
+
         blogPostRepository.save(blogPost);
         log.info("Blogpost id"+blogPost.getId());
         return blogPostDto;

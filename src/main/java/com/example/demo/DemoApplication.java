@@ -36,11 +36,11 @@ public class DemoApplication {
 //		User user = userRepository.findByEmail("admin@gmail.com").orElse(null);
 //		user.getRoles().add(role);
 //		userService.createUser(user);
-
-		Role role2 = roleRepository.findByRoleName(RoleName.BLOGGER);
-		User user2 = userRepository.findByEmail("blogger@gmail.com").orElse(null);
-		user2.getRoles().add(role2);
-		userService.createUser(user2);
+//
+//		Role role2 = roleRepository.findByRoleName(RoleName.BLOGGER);
+//		User user2 = userRepository.findByEmail("blogger@gmail.com").orElse(null);
+//		user2.getRoles().add(role2);
+//		userService.createUser(user2);
 
 	};}
 

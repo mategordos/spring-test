@@ -26,13 +26,17 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain (HttpSecurity http) throws Exception
     { http
             .csrf(csrf -> csrf.disable())
+            .cors(cors -> cors.disable())
             .sessionManagement(sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests((authz) -> authz
-            .requestMatchers("/user/**").permitAll()
-            .requestMatchers("/admin/**").hasAuthority("ADMIN"));
+//            .requestMatchers("/").permitAll()
+            .requestMatchers("/user/**").anonymous()
+            .requestMatchers("/blogposts/**").hasAuthority("BLOGGER"));
+//            .requestMatchers("/category/**").hasAuthority("ADMIN")
+//            .requestMatchers("/admin/**").hasAuthority("ADMIN"));
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
-        return  http.build();
+        return http.build();
     }
 
 
