@@ -23,10 +23,10 @@ public class DemoApplication {
 	}
 
 
-//	@Bean
-//	CommandLineRunner run (UserService userService , RoleRepository roleRepository , UserRepository userRepository , PasswordEncoder passwordEncoder)
-//	{return  args ->
-//	{
+	@Bean
+	CommandLineRunner run (UserService userService , RoleRepository roleRepository , UserRepository userRepository , PasswordEncoder passwordEncoder)
+	{return  args ->
+	{
 //		userService.createRole(new Role(RoleName.BLOGGER));
 //		userService.createRole(new Role(RoleName.ADMIN));
 //		userService.createUser(new User("Base Blogger", "blogger@gmail.com", passwordEncoder.encode("bloggerPassword"), new HashSet<>()));
@@ -36,12 +36,12 @@ public class DemoApplication {
 //		User user = userRepository.findByEmail("admin@gmail.com").orElse(null);
 //		user.getRoles().add(role);
 //		userService.createUser(user);
-//
-//		Role role2 = roleRepository.findByRoleName(RoleName.BLOGGER);
-//		User user2 = userRepository.findByEmail("blogger@gmail.com").orElse(null);
-//		user.getRoles().add(role2);
-//		userService.createUser(user2);
-//
-//	};}
+
+		Role role2 = roleRepository.findByRoleName(RoleName.BLOGGER);
+		User user2 = userRepository.findByEmail("blogger@gmail.com").orElse(null);
+		user2.getRoles().add(role2);
+		userService.createUser(user2);
+
+	};}
 
 }

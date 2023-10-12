@@ -9,6 +9,7 @@ import com.example.demo.enums.RoleName;
 import com.example.demo.repository.RoleRepository;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.security.JwtUtilities;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +25,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+@Slf4j
 @Service
 public class UserService {
 
@@ -39,6 +41,7 @@ public class UserService {
     @Autowired
     private AuthenticationManager authenticationManager;
 
+    @Autowired
     private JwtUtilities jwtUtilities;
 
     public Role createRole(Role role) {
@@ -60,9 +63,10 @@ public class UserService {
             Role role = roleRepository.findByRoleName(RoleName.BLOGGER);
             user.setRoles(Collections.singleton(role));
             userRepository.save(user);
+            log.info("user successfully saved");
             String token = jwtUtilities.generateToken(registrationDto.getEmail(),Collections.singleton(role.getRoleName()));
+            log.info("token generated!!:3");
             return new ResponseEntity<>(new BearerTokenDto(token , "Bearer "),HttpStatus.OK);
-
         }
     }
 
