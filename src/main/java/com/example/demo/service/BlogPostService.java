@@ -68,8 +68,8 @@ public class BlogPostService {
                 .orElseThrow(() -> new RuntimeException("Category not found with ID"));
         blogPost.setTitle(blogPostDto.getTitle());
         blogPost.setCategory(category);
-//        blogPost.setAuthor(userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName())
-//                .orElseThrow(() -> new UsernameNotFoundException("User not found")));
+        blogPost.setAuthor(userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName())
+                .orElseThrow(() -> new UsernameNotFoundException("User not found")));
 
         blogPostRepository.save(blogPost);
         log.info("Blogpost id"+blogPost.getId());

@@ -1,18 +1,20 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import AppNavbar from "../AppNavbar";
 import {Button, Col, Container, FormGroup, Input, Label, Row} from "reactstrap";
 import {Link} from "react-router-dom";
 import axios from 'axios';
 import CategoryDropdown from "./CategoryDropdown";
-
+import Authorized from "../Authorized";
 
 export default function PostCreator() {
+
     const [title, setTitle] = useState('');
     const [postBody, setPostBody] = useState('');
     const [selectedCategory, setSelectedCategory] = useState('');
 
     return(
         <div>
+        <Authorized requiredRoles={["BLOGGER", "ADMIN"]}>
             <AppNavbar/>
             <Container className="w-50 pt-4">
                 <TitleItem setTitle={setTitle}/>
@@ -22,6 +24,7 @@ export default function PostCreator() {
                     title={title}
                     selectedCategory={selectedCategory}/>
             </Container>
+        </Authorized>
         </div>
     )
 }
@@ -61,15 +64,24 @@ function PostBodyItem() {
 }
 
 function ConfirmButtons({ title, selectedCategory}) {
+
+    useEffect(() => {
+        // Retrieve the JWT token from localStorage
+        const token = localStorage.getItem('jwtToken');
+
+        if (token) {
+            axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+        }
+    }, []); // Only runs once when the component mounts
+
     const handleSave = () => {
         // Create a new blog post object
         const newBlogPost = {
             title: title,
-            categoryId: selectedCategory
+            categoryId: selectedCategory,
             // Add other properties if necessary
         };
 
-        // Send a POST request to create the blog post
         axios.post('/blogposts', newBlogPost)
             .then((response) => {
                 // Handle success, e.g., redirect to the created blog post

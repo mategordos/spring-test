@@ -30,7 +30,7 @@ function PostsContainer() {
     return (
         <Container className="w-50">
             {blogPosts.map((blogPost) => (
-                <BlogPost post={blogPost}/>
+                <BlogPost post={blogPost}   />
             ))}
         </Container>
     )

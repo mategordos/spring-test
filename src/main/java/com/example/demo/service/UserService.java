@@ -81,7 +81,7 @@ public class UserService {
         User user = userRepository.findByEmail(authentication.getName()).orElseThrow(() -> new UsernameNotFoundException("User not found."));
         Set<String> rolesNames = new HashSet<>();
         user.getRoles().forEach(r-> rolesNames.add(r.getRoleName()));
-        String token = jwtUtilities.generateToken(user.getName(),rolesNames);
+        String token = jwtUtilities.generateToken(user.getUsername(),rolesNames);
         return token;
     }
 

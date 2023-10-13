@@ -2,6 +2,7 @@ package com.example.demo.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -31,9 +32,10 @@ public class SecurityConfig {
             .authorizeHttpRequests((authz) -> authz
 //            .requestMatchers("/").permitAll()
             .requestMatchers("/user/**").anonymous()
-            .requestMatchers("/blogposts/**").hasAuthority("BLOGGER"));
-//            .requestMatchers("/category/**").hasAuthority("ADMIN")
-//            .requestMatchers("/admin/**").hasAuthority("ADMIN"));
+            .requestMatchers(HttpMethod.POST,"/blogposts/**").hasAuthority("BLOGGER")
+            .requestMatchers("/blogposts/**").anonymous()
+            .requestMatchers("/categories/**").anonymous()
+            .requestMatchers("/admin/**").anonymous());
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();

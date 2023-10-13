@@ -25,7 +25,7 @@ public class BlogPostController {
     //done
     @PostMapping("")
     public ResponseEntity<BlogPostDto> createBlogPost(@RequestBody BlogPostDto blogPostDto) throws URISyntaxException {
-        blogPostService.createBlogPost(blogPostDto);
+            blogPostService.createBlogPost(blogPostDto);
         return new ResponseEntity<>(blogPostDto, HttpStatus.CREATED);
     }
 
