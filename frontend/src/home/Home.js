@@ -1,10 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import '../App.css';
 import AppNavbar from '../AppNavbar';
-import {Container} from "reactstrap";
+import {Container, Row} from "reactstrap";
 import axios from "axios";
-import BlogPost from "./BlogPost";
-import {Link} from "react-router-dom";
+import BlogPostCard from "./BlogPostCard";
 
 export default function Home(){
     return (
@@ -28,9 +27,11 @@ function PostsContainer() {
     }, []);
 
     return (
-        <Container className="w-50">
+        <Container className="w-50 ">
             {blogPosts.map((blogPost) => (
-                <BlogPost post={blogPost}   />
+                <Row className="mt-4">
+                    <BlogPostCard post={blogPost} className=""></BlogPostCard>
+                </Row>
             ))}
         </Container>
     )

@@ -1,11 +1,13 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
+import org.checkerframework.checker.units.qual.Length;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -25,6 +27,7 @@ public class Category {
     Long id;
 
     @Column(unique = true)
+    @Size(min = 1, max = 20)
     String categoryName;
 
     @OneToMany(mappedBy = "category")

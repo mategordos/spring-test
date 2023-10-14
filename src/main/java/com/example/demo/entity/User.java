@@ -2,6 +2,9 @@
 
 
     import jakarta.persistence.*;
+    import jakarta.validation.constraints.Email;
+    import jakarta.validation.constraints.Pattern;
+    import jakarta.validation.constraints.Size;
     import lombok.AccessLevel;
     import lombok.Getter;
     import lombok.NoArgsConstructor;
@@ -29,11 +32,15 @@
         Long id;
 
         @Column(unique = true)
+        @Size(min = 3, max = 20)
         String name;
 
+        @Size(min = 8, max = 20)
         String password;
 
         @Column(unique = true)
+        @Email(regexp = "[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}",
+                flags = Pattern.Flag.CASE_INSENSITIVE)
         String email;
 
         @OneToMany(mappedBy = "author")

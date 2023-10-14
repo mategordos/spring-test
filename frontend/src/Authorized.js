@@ -12,7 +12,7 @@ export default function Authorized({ requiredRoles, children }) {
         console.log("current user: "+ user)
         console.log("current token: " +token)
         if (user == null) {
-            history.replace('/auth');
+            history.replace('/login');
         } else if (!requiredRoles.some(role => user.role.includes(role))) {
             history.replace('/forbidden');
         }

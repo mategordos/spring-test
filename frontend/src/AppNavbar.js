@@ -52,7 +52,7 @@ function SignUpProfileNavItem () {
                     </DropdownMenu>
                 </UncontrolledDropdown>
             ) : (
-                <NavbarBrand tag={Link} to="/auth">Sign Up</NavbarBrand>
+                <NavbarBrand tag={Link} to="/login">Sign In</NavbarBrand>
             )}
         </NavItem>
     )

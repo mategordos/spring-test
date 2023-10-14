@@ -14,7 +14,7 @@ export default function PostCreator() {
 
     return(
         <div>
-        <Authorized requiredRoles={["BLOGGER", "ADMIN"]}>
+            <Authorized requiredRoles={["BLOGGER", "ADMIN"]}>
             <AppNavbar/>
             <Container className="w-50 pt-4">
                 <TitleItem setTitle={setTitle}/>
@@ -24,7 +24,7 @@ export default function PostCreator() {
                     title={title}
                     selectedCategory={selectedCategory}/>
             </Container>
-        </Authorized>
+            </Authorized>
         </div>
     )
 }

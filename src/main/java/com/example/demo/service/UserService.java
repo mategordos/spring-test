@@ -66,7 +66,7 @@ public class UserService {
             log.info("user successfully saved");
             String token = jwtUtilities.generateToken(registrationDto.getEmail(),Collections.singleton(role.getRoleName()));
             log.info("token generated!!:3");
-            return new ResponseEntity<>(new BearerTokenDto(token , "Bearer "),HttpStatus.OK);
+            return new ResponseEntity<>(token,HttpStatus.OK);
         }
     }
 
