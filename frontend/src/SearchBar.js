@@ -17,7 +17,7 @@ function Search({ onSearch }) {
         <NavItem className="m-lg-auto w-50">
             <Input
                 type="text"
-                placeholder="Search on insight.."
+                placeholder="Search on Insight.."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 onKeyDown={handleKeyPress}

@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import '../App.css';
-import AppNavbar from '../AppNavbar';
+import AppNavbar from '../appnavbar/AppNavbar';
 import {Container, Row} from "reactstrap";
 import axios from "axios";
-import BlogPostCard from "./BlogPostCard";
+import BlogPostCard from "../util/BlogPostCard";
 
 export default function Home(){
     return (
@@ -19,7 +19,11 @@ function PostsContainer() {
     useEffect(() => {
         axios.get('/blogposts')
             .then((response) => {
-                setBlogPosts(response.data);
+                const sortedBlogPosts = response.data.sort((a, b) => {
+                    return new Date(b.lastUpdated) - new Date(a.lastUpdated);
+                });
+
+                setBlogPosts(sortedBlogPosts);
             })
             .catch((error) => {
                 console.error('Error fetching blog posts:', error);

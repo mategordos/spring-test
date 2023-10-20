@@ -17,7 +17,6 @@ public class CategoryService {
     private CategoryRepository categoryRepository;
 
 
-    //done
     public CategoryDto createCategory(CategoryDto categoryDto) {
         Category category = new Category();
         category.setCategoryName(categoryDto.getCategoryName());
@@ -41,11 +40,11 @@ public class CategoryService {
         Set<BlogPostDto> blogPostDtos = new HashSet<>();
         for (BlogPost blogPost : blogPosts) {
             BlogPostDto blogPostDto = new BlogPostDto();
+            blogPostDto.setBlogPostId(blogPost.getId());
             blogPostDto.setCategoryId(blogPost.getCategory().getId());
             blogPostDto.setTitle(blogPost.getTitle());
-            // Set other properties of BlogPostDto as needed
-
-            // Add the BlogPostDto to the set
+            blogPostDto.setLastUpdated(blogPost.getLastUpdated());
+            blogPostDto.setAuthorName(blogPost.getAuthor().getName());
             blogPostDtos.add(blogPostDto);
         }
 
@@ -68,12 +67,19 @@ public class CategoryService {
             CategoryDto categoryDto = new CategoryDto();
             categoryDto.setId(category.getId());
             categoryDto.setCategoryName(category.getCategoryName());
-            // Set other properties of BlogPostDto as needed
 
-            // Add the BlogPostDto to the set
             categoryDtos.add(categoryDto);
         }
 
         return categoryDtos;
+    }
+
+
+    public void updateCategory(Long categoryId, CategoryDto categoryDto) {
+        Category category = categoryRepository.findById(categoryId)
+                .orElseThrow(() -> new RuntimeException("Category not found with id: " + categoryId));
+
+        category.setCategoryName(categoryDto.getCategoryName());
+        categoryRepository.save(category);
     }
 }

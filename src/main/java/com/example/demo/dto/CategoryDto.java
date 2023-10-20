@@ -1,14 +1,11 @@
 package com.example.demo.dto;
 
-import com.example.demo.entity.BlogPost;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
-import java.util.HashSet;
-import java.util.Set;
 
 @Setter
 @Getter

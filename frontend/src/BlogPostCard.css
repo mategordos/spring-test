@@ -1,0 +1,59 @@
+.blogpost-card {
+    background: white;
+    border: 1px solid #e1e1e1;
+    border-radius: 4px;
+    transition: box-shadow 0.3s;
+    overflow: hidden;
+}
+
+.blogpost-card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.blogpost-card-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    margin: 0;
+}
+
+.blogpost-card-text {
+    max-height: 4.8em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: pre-line;
+    background-color: #fff;
+    color: #000;
+
+}
+
+.blogpost-card-category {
+    background-color: #f0f0f0;
+    border-radius: 15px;
+    padding: 4px 10px;
+    display: inline-block;
+    color: #333;
+    transition: background-color 0.3s;
+}
+
+.blogpost-card-category:hover {
+    background-color: #555;
+    color: #fff;
+}
+
+.author-info {
+    display: flex;
+    align-items: center;
+}
+
+.author-avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+
+
+
+

@@ -2,14 +2,12 @@ package com.example.demo.controller;
 
 import com.example.demo.aws.S3Service;
 import com.example.demo.dto.BlogPostDto;
-import com.example.demo.entity.BlogPost;
 import com.example.demo.service.BlogPostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Set;
 
@@ -55,5 +53,10 @@ public class BlogPostController {
     public ResponseEntity<?> deleteBlogPost(@PathVariable Long blogPostId) {
         blogPostService.deleteBlogPostById(blogPostId);
         return ResponseEntity.ok("Blogpost deleted: " + blogPostId);
+    }
+
+    @GetMapping("/by-author")
+    public Set<BlogPostDto> getBlogPostsByAuthor(@RequestParam("author") String author) {
+        return blogPostService.findBlogPostsByAuthor(author);
     }
 }

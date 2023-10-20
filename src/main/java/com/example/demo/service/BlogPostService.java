@@ -6,8 +6,6 @@ import com.example.demo.entity.Category;
 import com.example.demo.repository.BlogPostRepository;
 import com.example.demo.repository.CategoryRepository;
 import com.example.demo.repository.UserRepository;
-import com.example.demo.security.JwtUtilities;
-import lombok.extern.log4j.Log4j;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -32,13 +30,15 @@ public class BlogPostService {
     private UserRepository userRepository;
 
 
-//done
     public BlogPostDto findBlogPostById(Long blogPostId) {
         BlogPost blogPost = blogPostRepository.findById(blogPostId)
                 .orElseThrow(() -> new RuntimeException("BlogPost not found with ID: " + blogPostId));
         BlogPostDto blogPostDto = new BlogPostDto();
-        blogPostDto.setTitle(blogPost.getTitle());
+        blogPostDto.setBlogPostId(blogPost.getId());
         blogPostDto.setCategoryId(blogPost.getCategory().getId());
+        blogPostDto.setTitle(blogPost.getTitle());
+        blogPostDto.setAuthorName(blogPost.getAuthor().getName());
+        blogPostDto.setLastUpdated(blogPost.getLastUpdated());
 
         return blogPostDto;
     }
@@ -49,18 +49,17 @@ public class BlogPostService {
 
         for (BlogPost blogPost : blogPosts) {
             BlogPostDto blogPostDto = new BlogPostDto();
+            blogPostDto.setBlogPostId(blogPost.getId());
             blogPostDto.setCategoryId(blogPost.getCategory().getId());
             blogPostDto.setTitle(blogPost.getTitle());
-            // Set other properties of BlogPostDto as needed
-
-            // Add the BlogPostDto to the set
+            blogPostDto.setAuthorName(blogPost.getAuthor().getName());
+            blogPostDto.setLastUpdated(blogPost.getLastUpdated());
             blogPostDtos.add(blogPostDto);
         }
 
         return blogPostDtos;
     }
 
-    //done
 
     public BlogPostDto createBlogPost(BlogPostDto blogPostDto) {
         BlogPost blogPost = new BlogPost();
@@ -89,11 +88,28 @@ public class BlogPostService {
     }
 
 
-    //done
     public void deleteBlogPostById(Long blogPostId) {
         if (!blogPostRepository.existsById(blogPostId)) {
             throw new RuntimeException("Delete attempted, blogPost not found with ID: " + blogPostId);
         }
         blogPostRepository.deleteById(blogPostId);
+    }
+
+
+    public Set<BlogPostDto> findBlogPostsByAuthor(String email) {
+        Set<BlogPostDto> blogPostDtos = new HashSet<>();
+        Set<BlogPost> blogPosts = blogPostRepository.findByAuthorEmail(email);
+
+        for (BlogPost blogPost : blogPosts) {
+            BlogPostDto blogPostDto = new BlogPostDto();
+            blogPostDto.setBlogPostId(blogPost.getId());
+            blogPostDto.setCategoryId(blogPost.getCategory().getId());
+            blogPostDto.setTitle(blogPost.getTitle());
+            blogPostDto.setAuthorName(blogPost.getAuthor().getName());
+            blogPostDto.setLastUpdated(blogPost.getLastUpdated());
+            blogPostDtos.add(blogPostDto);
+        }
+
+        return blogPostDtos;
     }
 }

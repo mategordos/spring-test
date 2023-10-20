@@ -1,4 +1,4 @@
-import AppNavbar from "./AppNavbar";
+import AppNavbar from "../appnavbar/AppNavbar";
 import React, {useState} from "react";
 import {useHistory} from "react-router-dom";
 import axios from "axios";
@@ -22,13 +22,13 @@ export default function RegisterPage() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
-    const history = useHistory(); // Create a history object for navigation
+    const history = useHistory();
 
     const handleRegister = async (e) => {
         e.preventDefault();
 
         try {
-            const response = await axios.post('user/register', {
+            const response = await axios.post('users/register', {
                 name: name,
                 email: email,
                 password: password

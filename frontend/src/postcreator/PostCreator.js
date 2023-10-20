@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import AppNavbar from "../AppNavbar";
+import AppNavbar from "../appnavbar/AppNavbar";
 import {Button, Col, Container, FormGroup, Input, Label, Row} from "reactstrap";
-import {Link} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 import axios from 'axios';
 import CategoryDropdown from "./CategoryDropdown";
 import Authorized from "../Authorized";
@@ -64,28 +64,26 @@ function PostBodyItem() {
 }
 
 function ConfirmButtons({ title, selectedCategory}) {
+    const history = useHistory();
 
     useEffect(() => {
-        // Retrieve the JWT token from localStorage
         const token = localStorage.getItem('jwtToken');
 
         if (token) {
             axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
         }
-    }, []); // Only runs once when the component mounts
+    }, []);
 
     const handleSave = () => {
-        // Create a new blog post object
         const newBlogPost = {
             title: title,
             categoryId: selectedCategory,
-            // Add other properties if necessary
         };
 
         axios.post('/blogposts', newBlogPost)
             .then((response) => {
-                // Handle success, e.g., redirect to the created blog post
                 console.log('Blog post created:', response.data);
+                history.push('/')
             })
             .catch((error) => {
                 // Handle errors

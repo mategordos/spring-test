@@ -1,14 +1,18 @@
 package com.example.demo.service;
 
-import com.example.demo.dto.BearerTokenDto;
+import com.example.demo.dto.BlogPostDto;
 import com.example.demo.dto.LoginDto;
 import com.example.demo.dto.RegistrationDto;
+import com.example.demo.dto.UserDto;
+import com.example.demo.entity.BlogPost;
+import com.example.demo.entity.Category;
 import com.example.demo.entity.Role;
 import com.example.demo.entity.User;
 import com.example.demo.enums.RoleName;
 import com.example.demo.repository.RoleRepository;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.security.JwtUtilities;
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,6 +28,7 @@ import org.springframework.stereotype.Service;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -60,7 +65,7 @@ public class UserService {
             user.setEmail(registrationDto.getEmail());
             user.setName(registrationDto.getName());
             user.setPassword(passwordEncoder.encode(registrationDto.getPassword()));
-            Role role = roleRepository.findByRoleName(RoleName.BLOGGER);
+            Role role = roleRepository.findByRoleName(RoleName.USER);
             user.setRoles(Collections.singleton(role));
             userRepository.save(user);
             log.info("user successfully saved");
@@ -85,5 +90,63 @@ public class UserService {
         return token;
     }
 
+    public Set<UserDto> findAllUsers() {
+        Set<User> users = new HashSet<>(userRepository.findAll());
+        Set<UserDto> userDtos = new HashSet<>();
+        Set<String> roleNames;
+        for (User user : users) {
+            UserDto userDto = new UserDto();
+            userDto.setId(user.getId());
+            userDto.setName(user.getName());
+            userDto.setEmail(user.getEmail());
+            roleNames = user.getRoles()
+                    .stream()
+                    .map(Role::getRoleName)
+                    .collect(Collectors.toSet());
+            userDto.setRoleNames(roleNames);
+
+            userDtos.add(userDto);
+        }
+
+        return userDtos;
+    }
+
+    @Transactional
+    public void deleteUserById(Long id) {
+        User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException());
+        Set<Role> roles = new HashSet<>(roleRepository.findAll());
+        user.getRoles().removeAll(roles);
+        userRepository.save(user);
+        userRepository.deleteById(id);
+    }
+
+
+    //not working needs fix
+    @Transactional
+    public User updateUserRoles(Long id, UserDto userDto) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        Set<Role> roles = new HashSet<>();
+
+        for (String roleName : userDto.getRoleNames()) {
+            Role role = roleRepository.findByRoleName(RoleName.valueOf(roleName));
+            roles.add(role);
+        }
+        user.setRoles(roles);
+        return userRepository.save(user);
+    }
+
+
+    public UserDto getUserByEmail(String email) {
+        User user = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException());
+        UserDto userDto = new UserDto();
+        userDto.setId(user.getId());
+        userDto.setName(user.getName());
+        userDto.setEmail(user.getEmail());
+
+
+        return userDto;
+    }
 
 }

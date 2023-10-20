@@ -1,24 +1,19 @@
 package com.example.demo.dto;
 
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
+
+import java.util.Set;
 
 @Setter
 @Getter
+@ToString
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class UserDto {
-    String userName;
-
-
-    @Override
-    public String toString() {
-        return "UserDto{" +
-
-                '}';
-    }
+    Long id;
+    String name;
+    String email;
+    Set<String> roleNames;
 }

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom'; // Import useHistory from react-router-dom
-import AppNavbar from './AppNavbar';
+import AppNavbar from '../appnavbar/AppNavbar';
 import {
     Button,
     Card,
@@ -20,13 +20,14 @@ import {
 export default function LoginPage() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const history = useHistory(); // Create a history object for navigation
+    const history = useHistory();
+    const [error, setError] = useState(null);
 
     const handleLogin = async (e) => {
         e.preventDefault();
 
         try {
-            const response = await axios.post('user/login', {
+            const response = await axios.post('users/login', {
                 email: email,
                 password: password
             });
@@ -36,6 +37,9 @@ export default function LoginPage() {
 
         } catch (error) {
             console.error('Login failed:', error);
+            history.push('/login');
+
+            setError(true);
         }
     };
 
@@ -70,8 +74,13 @@ export default function LoginPage() {
                                         />
                                     </FormGroup>
                                     <div className="text-center">
-                                        <Button type="submit" color="primary" className="mt-5">Login</Button>
+                                        <Button type="submit" color="primary" className="mt-4">Login</Button>
                                     </div>
+                                    {error && (
+                                        <div className="text-center text-danger mb-3 mt-3">
+                                            Invalid username or password. Please try again.
+                                        </div>
+                                    )}
                                 </Form>
                             </CardBody>
                             <CardFooter>

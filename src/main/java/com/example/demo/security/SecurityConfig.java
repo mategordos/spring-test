@@ -30,11 +30,11 @@ public class SecurityConfig {
             .cors(cors -> cors.disable())
             .sessionManagement(sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests((authz) -> authz
-            .requestMatchers("/user/**").permitAll()
+            .requestMatchers("/users/**").permitAll()
+//            .requestMatchers(HttpMethod.DELETE, "/users/**").hasAuthority("ADMIN")
             .requestMatchers(HttpMethod.POST,"/blogposts/**").hasAuthority("BLOGGER")
             .requestMatchers("/blogposts/**").permitAll()
-            .requestMatchers("/categories/**").permitAll()
-            .requestMatchers("/admin/**").hasAuthority("ADMIN"));
+            .requestMatchers("/categories/**").permitAll());
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();

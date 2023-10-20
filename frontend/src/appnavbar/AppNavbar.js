@@ -10,12 +10,12 @@ import {
     UncontrolledDropdown
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import SearchBar from "./SearchBar";
+import SearchBar from "../SearchBar";
 
 function HomeNavItem() {
     return(
         <NavItem>
-            <NavbarBrand className="m-lg-3" tag={Link} to="/">Home</NavbarBrand>
+            <NavbarBrand className="m-lg-3" tag={Link} to="/">Insight.</NavbarBrand>
         </NavItem>
     )
 }

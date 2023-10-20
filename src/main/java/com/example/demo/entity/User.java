@@ -46,7 +46,7 @@
         @OneToMany(mappedBy = "author")
         Set<BlogPost> blogposts;
 
-        @ManyToMany(fetch = FetchType.EAGER , cascade = CascadeType.PERSIST)
+        @ManyToMany(fetch = FetchType.EAGER , cascade = CascadeType.ALL)
         Set<Role>roles ;
 
 

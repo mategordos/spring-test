@@ -1,7 +1,6 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Size;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,7 +8,6 @@ import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
 import java.sql.Timestamp;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -26,6 +24,8 @@ public class BlogPost {
     Long id;
 
     String title;
+
+    String contentFileName;
 
     @ManyToOne
     User author;
