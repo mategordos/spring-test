@@ -8,6 +8,7 @@ import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
 import java.sql.Timestamp;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -39,6 +40,8 @@ public class BlogPost {
 
     int score = 0;
 
+    @OneToMany(mappedBy = "blogPost")
+    Set<Comment> comments;
 
 
 

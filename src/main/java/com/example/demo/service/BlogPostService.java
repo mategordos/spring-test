@@ -39,6 +39,7 @@ public class BlogPostService {
         blogPostDto.setTitle(blogPost.getTitle());
         blogPostDto.setAuthorName(blogPost.getAuthor().getName());
         blogPostDto.setLastUpdated(blogPost.getLastUpdated());
+        blogPostDto.setContentFileName(blogPost.getContentFileName());
 
         return blogPostDto;
     }
@@ -54,6 +55,7 @@ public class BlogPostService {
             blogPostDto.setTitle(blogPost.getTitle());
             blogPostDto.setAuthorName(blogPost.getAuthor().getName());
             blogPostDto.setLastUpdated(blogPost.getLastUpdated());
+            blogPostDto.setContentFileName(blogPost.getContentFileName());
             blogPostDtos.add(blogPostDto);
         }
 
@@ -69,6 +71,7 @@ public class BlogPostService {
         blogPost.setCategory(category);
         blogPost.setAuthor(userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName())
                 .orElseThrow(() -> new UsernameNotFoundException("User not found")));
+        blogPost.setContentFileName(blogPost.getAuthor().getName()+"-"+blogPost.getCategory().getId()+"-"+blogPost.getTitle());
 
         blogPostRepository.save(blogPost);
         log.info("Blogpost id"+blogPost.getId());

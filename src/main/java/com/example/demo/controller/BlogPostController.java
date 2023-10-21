@@ -2,7 +2,9 @@ package com.example.demo.controller;
 
 import com.example.demo.aws.S3Service;
 import com.example.demo.dto.BlogPostDto;
+import com.example.demo.dto.CommentDto;
 import com.example.demo.service.BlogPostService;
+import com.example.demo.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +22,8 @@ public class BlogPostController {
 
     @Autowired
     private S3Service s3;
+
+
     //done
     @PostMapping("")
     public ResponseEntity<BlogPostDto> createBlogPost(@RequestBody BlogPostDto blogPostDto) throws URISyntaxException {
@@ -59,4 +63,8 @@ public class BlogPostController {
     public Set<BlogPostDto> getBlogPostsByAuthor(@RequestParam("author") String author) {
         return blogPostService.findBlogPostsByAuthor(author);
     }
+
+
+
+
 }
