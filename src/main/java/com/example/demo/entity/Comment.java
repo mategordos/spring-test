@@ -29,7 +29,7 @@ public class Comment {
     @ManyToOne
     BlogPost blogPost;
 
-    Timestamp date = new Timestamp(System.currentTimeMillis());
+    Timestamp creationDate = new Timestamp(System.currentTimeMillis());
 
 
 }

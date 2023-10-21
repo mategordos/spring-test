@@ -16,7 +16,7 @@ public class CommentController {
     @Autowired
     private CommentService commentService;
 
-    @GetMapping("/{blogPostId}/")
+    @GetMapping("/{blogPostId}")
     public Set<CommentDto> findAllCommentsByBlogPostId(@PathVariable Long blogPostId) {
         return commentService.findAllCommentsByBlogPostId(blogPostId);
     }

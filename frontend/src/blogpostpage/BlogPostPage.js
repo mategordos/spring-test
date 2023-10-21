@@ -66,7 +66,6 @@ export default function BlogPostPage() {
                 console.error('Error fetching blog post:', error);
             });
 
-        // Fetch comments for the blog post
         axios
             .get(`/comments/${blogPostId}`)
             .then((response) => {
@@ -80,7 +79,7 @@ export default function BlogPostPage() {
     const handleCommentSubmit = () => {
         if (newCommentText) {
             const newComment = {
-                content: newCommentText,
+                content: newCommentText
             };
 
             axios
@@ -128,22 +127,6 @@ export default function BlogPostPage() {
             <Container className="w-50 mt-4">
                 <Row>
                     <Col>
-                        <h3>Comments</h3>
-                        {comments.map((comment) => (
-                            <Comment
-                                key={comment.commentId}
-                                commenter={comment.commenterName}
-                                content={comment.content}
-                            />
-                        ))}
-                    </Col>
-                </Row>
-            </Container>
-
-            {/* Comment creation form */}
-            <Container className="w-50 mt-4">
-                <Row>
-                    <Col>
                         <h3>Add a Comment</h3>
                         <textarea
                             rows="4"
@@ -158,6 +141,23 @@ export default function BlogPostPage() {
                     </Col>
                 </Row>
             </Container>
+
+            <Container className="w-50 mt-4">
+                <Row>
+                    <Col>
+                        <h3>Comments</h3>
+                        {comments.map((comment) => (
+                            <Comment
+                                key={comment.commentId}
+                                commenter={comment.name}
+                                content={comment.content}
+                            />
+                        ))}
+                    </Col>
+                </Row>
+            </Container>
+
+
 
         </div>
     );

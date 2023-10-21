@@ -38,7 +38,7 @@ public class CommentService {
             commentDto.setBlogPostId(comment.getBlogPost().getId());
             commentDto.setContent(comment.getContent());
             commentDto.setName(comment.getCommenter().getName());
-            commentDto.setDate(comment.getDate());
+            commentDto.setDate(comment.getCreationDate());
 
             commentDtos.add(commentDto);
         }
