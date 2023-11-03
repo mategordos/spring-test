@@ -54,6 +54,44 @@
 }
 
 
+.score-button {
+    background-color: #f0f0f0;
+    border-radius: 15px;
+    padding: 4px 10px;
+    display: inline-block;
+    color: #333;
+    transition: background-color 0.3s;
+}
+
+.score-button:enabled{
+    background-color: #f0f0f0;
+    border-radius: 15px;
+    padding: 4px 10px;
+    display: inline-block;
+    color: #333;
+    transition: background-color 0.3s;
+}
+
+.comment-button {
+    background-color: #f0f0f0;
+    border-radius: 15px;
+    padding: 4px 10px;
+    display: inline-block;
+    color: #333;
+    transition: background-color 0.3s;
+}
+
+.comment-button:enabled{
+    background-color: lightblue;
+    color: white;
+    border-radius: 15px;
+    padding: 4px 10px;
+    display: inline-block;
+    color: #333;
+    transition: background-color 0.3s;
+}
+
+
 
 
 

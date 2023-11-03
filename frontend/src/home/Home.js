@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import '../App.css';
 import AppNavbar from '../appnavbar/AppNavbar';
-import {Container, Row} from "reactstrap";
+import {Col, Container, Row} from "reactstrap";
 import axios from "axios";
 import BlogPostCard from "../util/BlogPostCard";
 
@@ -20,7 +20,7 @@ function PostsContainer() {
         axios.get('/blogposts')
             .then((response) => {
                 const sortedBlogPosts = response.data.sort((a, b) => {
-                    return new Date(b.lastUpdated) - new Date(a.lastUpdated);
+                    return b.lastUpdated.localeCompare(a.lastUpdated);
                 });
 
                 setBlogPosts(sortedBlogPosts);
@@ -31,12 +31,16 @@ function PostsContainer() {
     }, []);
 
     return (
-        <Container className="w-50 ">
-            {blogPosts.map((blogPost) => (
-                <Row className="mt-4">
-                    <BlogPostCard post={blogPost} className=""></BlogPostCard>
-                </Row>
-            ))}
-        </Container>
+        <div >
+            <Container  className="w-50">
+                <Col>
+                    {blogPosts.map((blogPost) => (
+                        <Row className="mt-4">
+                            <BlogPostCard post={blogPost}></BlogPostCard>
+                        </Row>
+                    ))}
+                </Col>
+            </Container>
+        </div>
     )
 }

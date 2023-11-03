@@ -51,11 +51,10 @@ export default function UserProfile() {
             if (decodedToken) {
                 const userEmail = decodedToken.sub;
 
-                // Make a request to fetch all blog posts by the user's email
                 axios.get(`/blogposts/by-author?author=${userEmail}`)
                     .then((response) => {
                         const sortedBlogPosts = response.data.sort((a, b) => {
-                            return new Date(b.lastUpdated) - new Date(a.lastUpdated);
+                            return b.lastUpdated.localeCompare(a.lastUpdated);
                         });
 
                         setBlogPosts(sortedBlogPosts);
@@ -94,7 +93,7 @@ export default function UserProfile() {
             <Container className="w-50">
                 <Card>
                     <CardBody>
-                        <CardTitle>User Profile</CardTitle>
+                        <CardTitle><h2>User Profile</h2></CardTitle>
                         <CardText>
                             <strong>Name:</strong> {userData.name}<br />
                             <strong>Email:</strong> {userData.email}<br />

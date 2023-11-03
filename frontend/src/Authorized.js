@@ -4,11 +4,9 @@ import { useHistory } from 'react-router-dom';
 
 export default function Authorized({ requiredRoles, children }) {
     const history = useHistory();
-
     useEffect(() => {
-        // Get the JWT token from local storage
         const token = localStorage.getItem('jwtToken');
-        const user = parseToken(token); // Implement a function to parse the JWT token
+        const user = parseToken(token);
         console.log("current user: "+ user)
         console.log("current token: " +token)
         if (user == null) {

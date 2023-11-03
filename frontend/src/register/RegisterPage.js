@@ -34,7 +34,7 @@ export default function RegisterPage() {
                 password: password
             });
             localStorage.setItem('jwtToken', response.data);
-
+            axios.defaults.headers.common['Authorization'] = `Bearer ${response.data}`;
             history.push('/');
 
         } catch (error) {

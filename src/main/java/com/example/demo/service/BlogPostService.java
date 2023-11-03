@@ -3,6 +3,7 @@ package com.example.demo.service;
 import com.example.demo.dto.BlogPostDto;
 import com.example.demo.entity.BlogPost;
 import com.example.demo.entity.Category;
+import com.example.demo.entity.User;
 import com.example.demo.repository.BlogPostRepository;
 import com.example.demo.repository.CategoryRepository;
 import com.example.demo.repository.UserRepository;
@@ -40,6 +41,8 @@ public class BlogPostService {
         blogPostDto.setAuthorName(blogPost.getAuthor().getName());
         blogPostDto.setLastUpdated(blogPost.getLastUpdated());
         blogPostDto.setContentFileName(blogPost.getContentFileName());
+        blogPostDto.setNumberOfComments(blogPost.getComments().size());
+        blogPostDto.setScore(blogPost.getUpvotedBy().size());
 
         return blogPostDto;
     }
@@ -56,6 +59,8 @@ public class BlogPostService {
             blogPostDto.setAuthorName(blogPost.getAuthor().getName());
             blogPostDto.setLastUpdated(blogPost.getLastUpdated());
             blogPostDto.setContentFileName(blogPost.getContentFileName());
+            blogPostDto.setScore(blogPost.getUpvotedBy().size());
+            blogPostDto.setNumberOfComments(blogPost.getComments().size());
             blogPostDtos.add(blogPostDto);
         }
 
@@ -110,9 +115,57 @@ public class BlogPostService {
             blogPostDto.setTitle(blogPost.getTitle());
             blogPostDto.setAuthorName(blogPost.getAuthor().getName());
             blogPostDto.setLastUpdated(blogPost.getLastUpdated());
+            blogPostDto.setScore(blogPost.getUpvotedBy().size());
+            blogPostDto.setNumberOfComments(blogPost.getComments().size());
             blogPostDtos.add(blogPostDto);
         }
 
         return blogPostDtos;
+    }
+
+    public Set<BlogPostDto> searchBlogPosts(String keyword) {
+        Set<BlogPostDto> blogPostDtos = new HashSet<>();
+        Set<BlogPost> blogPosts = blogPostRepository.searchByTitleIgnoreCase(keyword);
+        for (BlogPost blogPost : blogPosts) {
+            BlogPostDto blogPostDto = new BlogPostDto();
+            blogPostDto.setBlogPostId(blogPost.getId());
+            blogPostDto.setCategoryId(blogPost.getCategory().getId());
+            blogPostDto.setTitle(blogPost.getTitle());
+            blogPostDto.setAuthorName(blogPost.getAuthor().getName());
+            blogPostDto.setLastUpdated(blogPost.getLastUpdated());
+            blogPostDto.setScore(blogPost.getUpvotedBy().size());
+            blogPostDto.setNumberOfComments(blogPost.getComments().size());
+            blogPostDtos.add(blogPostDto);
+        }
+        return blogPostDtos;
+    }
+
+    public String addAndRemoveToUpvoters(Long blogPostId) {
+        BlogPost blogPost = blogPostRepository.findById(blogPostId)
+                .orElseThrow(() -> new RuntimeException("Blogpost not found with id:" +blogPostId));
+        User currentUser = userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName())
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        if (!blogPost.getUpvotedBy().contains(currentUser))
+        {
+            blogPost.getUpvotedBy().add(currentUser);
+            blogPostRepository.save(blogPost);
+            return "Upvoted!";
+        } else {
+            blogPost.getUpvotedBy().remove(currentUser);
+            blogPostRepository.save(blogPost);
+            return "Removed Upvote!";
+        }
+    }
+
+    public Boolean isPostUpvoted(Long blogPostId) {
+        BlogPost blogPost = blogPostRepository.findById(blogPostId)
+                .orElseThrow(() -> new RuntimeException("Blogpost not found with id:" +blogPostId));
+        User currentUser = userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName())
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        if (blogPost.getUpvotedBy().contains(currentUser)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

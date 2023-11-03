@@ -24,7 +24,10 @@ public class BlogPostDto {
 
     String contentFileName;
 
-//    Long authorId;
+    int score;
+
+    int numberOfComments;
+
     String authorName;
 
     Timestamp lastUpdated;
@@ -38,6 +41,8 @@ public class BlogPostDto {
                 ", authorName=" + authorName +
                 ", lastUpdated=" + lastUpdated +
                 ", contentFileName=" + contentFileName +
+                ", score=" + score +
+                ", numberOfComments=" + numberOfComments +
 //                ", authorId=" + authorId +
 
                 '}';

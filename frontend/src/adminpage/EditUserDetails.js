@@ -8,7 +8,6 @@ export default function EditUserDetails() {
     useEffect(() => {
         axios.get('/users')
             .then((response) => {
-                // Initialize selectedRoles for each user based on their existing roles
                 const usersWithRoles = response.data.map(user => ({
                     ...user,
                     selectedRoles: {
@@ -29,12 +28,10 @@ export default function EditUserDetails() {
     }, []);
 
     const handleRoleChange = (userId, roleName) => {
-        // Update the user's role selection in the local state
         setUsers(users.map(user => user.id === userId ? { ...user, selectedRoles: { ...user.selectedRoles, [roleName]: !user.selectedRoles[roleName] } } : user));
     };
 
     const handleSaveRoles = (userId) => {
-        // Find the user by ID
         const user = users.find(user => user.id === userId);
 
         if (!user) {
@@ -42,23 +39,18 @@ export default function EditUserDetails() {
             return;
         }
 
-        // Get the selected roles for the user
         const selectedRoles = user.selectedRoles;
 
-        // Create a UserDto with selected roles
         const userDto = {
             roleNames: Object.keys(selectedRoles).filter(roleName => selectedRoles[roleName])
         };
 
-        // Send the request with the UserDto in the request body
         axios.put(`/users/${userId}/roles`, userDto, {
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
             }
         })
             .then((response) => {
-                // Handle the response if needed
-                // For example, you might update the user data in the state
                 setUsers(users.map(user => user.id === userId ? response.data : user));
             })
             .catch((error) => {

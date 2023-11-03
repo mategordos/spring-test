@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useHistory } from 'react-router-dom'; // Import useHistory from react-router-dom
+import { useHistory } from 'react-router-dom';
 import AppNavbar from '../appnavbar/AppNavbar';
 import {
     Button,
@@ -32,7 +32,7 @@ export default function LoginPage() {
                 password: password
             });
             localStorage.setItem('jwtToken', response.data);
-
+            axios.defaults.headers.common['Authorization'] = `Bearer ${response.data}`;
             history.push('/');
 
         } catch (error) {

@@ -8,6 +8,7 @@ import com.example.demo.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URISyntaxException;
@@ -64,6 +65,22 @@ public class BlogPostController {
         return blogPostService.findBlogPostsByAuthor(author);
     }
 
+
+    @GetMapping("/search")
+    public ResponseEntity<Set<BlogPostDto>> searchBlogPosts(@RequestParam("keyword") String keyword){
+        Set<BlogPostDto> searchResults = blogPostService.searchBlogPosts(keyword);
+        return ResponseEntity.ok(searchResults);
+    }
+
+    @PutMapping("/vote/{blogPostId}")
+    public ResponseEntity<String> addAndRemoveToUpvoters(@PathVariable Long blogPostId) {
+        return ResponseEntity.ok(blogPostService.addAndRemoveToUpvoters(blogPostId));
+    }
+
+    @GetMapping("/is-upvoted/{blogPostId}")
+    public ResponseEntity<Boolean> isPostUpvoted(@PathVariable Long blogPostId) {
+        return ResponseEntity.ok(blogPostService.isPostUpvoted(blogPostId));
+    }
 
 
 

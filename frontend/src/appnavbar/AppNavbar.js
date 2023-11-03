@@ -10,7 +10,8 @@ import {
     UncontrolledDropdown
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import SearchBar from "../SearchBar";
+import SearchBar from "../util/SearchBar";
+import axios from "axios";
 
 function HomeNavItem() {
     return(
@@ -29,11 +30,9 @@ function SignUpProfileNavItem () {
     };
 
     const handleSignOut = () => {
-        // Remove JWT tokens from localStorage
         localStorage.removeItem('jwtToken');
-        // You can also perform other sign-out-related actions here
+        delete axios.defaults.headers.common["Authorization"];
 
-        // Close the dropdown
         setDropdownOpen(false);
     };
 

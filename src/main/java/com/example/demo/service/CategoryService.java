@@ -45,6 +45,8 @@ public class CategoryService {
             blogPostDto.setTitle(blogPost.getTitle());
             blogPostDto.setLastUpdated(blogPost.getLastUpdated());
             blogPostDto.setAuthorName(blogPost.getAuthor().getName());
+            blogPostDto.setScore(blogPost.getUpvotedBy().size());
+            blogPostDto.setNumberOfComments(blogPost.getComments().size());
             blogPostDtos.add(blogPostDto);
         }
 

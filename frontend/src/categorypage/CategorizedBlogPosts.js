@@ -9,7 +9,6 @@ export default function CategorizedBlogPosts() {
     const [blogPosts, setBlogPosts] = useState([]);
 
     useEffect(() => {
-        // Fetch blog posts for the specified category
         axios.get(`/categories/${categoryId}/blogposts`)
             .then((response) => {
                 setBlogPosts(response.data);

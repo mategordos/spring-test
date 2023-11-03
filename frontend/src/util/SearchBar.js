@@ -1,20 +1,19 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {Input, Button, NavItem} from 'reactstrap';
 
-function Search({ onSearch }) {
+function Search() {
     const [searchTerm, setSearchTerm] = useState('');
 
-    const handleSearch = () => {
-        onSearch(searchTerm);
-    };
+
     const handleKeyPress = (e) => {
         if (e.key === 'Enter') {
-            handleSearch();
+            window.location.href = `http://localhost:3000/search?keyword=${searchTerm}`;
         }
     };
 
+
     return (
-        <NavItem className="m-lg-auto w-50">
+        <NavItem className="m-lg-auto w-25">
             <Input
                 type="text"
                 placeholder="Search on Insight.."

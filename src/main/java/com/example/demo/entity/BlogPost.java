@@ -38,7 +38,8 @@ public class BlogPost {
 
     Timestamp lastUpdated = new Timestamp(System.currentTimeMillis());
 
-    int score = 0;
+    @ManyToMany(fetch = FetchType.EAGER , cascade = CascadeType.ALL)
+    Set<User> upvotedBy;
 
     @OneToMany(mappedBy = "blogPost")
     Set<Comment> comments;

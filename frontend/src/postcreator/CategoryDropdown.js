@@ -7,7 +7,6 @@ export default function CategoryDropdown({ setSelectedCategory }) {
     const [categories, setCategories] = useState([]);
 
     useEffect(() => {
-        // Fetch categories from the Spring API endpoint
         axios.get('/categories')
             .then((response) => {
                 setCategories(response.data);
