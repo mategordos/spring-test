@@ -26,8 +26,6 @@ public class BlogPost {
 
     String title;
 
-    String contentFileName;
-
     @ManyToOne
     User author;
 

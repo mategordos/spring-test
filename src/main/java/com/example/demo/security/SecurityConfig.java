@@ -34,6 +34,7 @@ public class SecurityConfig {
 //            .requestMatchers(HttpMethod.DELETE, "/users/**").hasAuthority("ADMIN")
             .requestMatchers(HttpMethod.POST,"/blogposts/**").hasAuthority("BLOGGER")
             .requestMatchers("/blogposts/**").permitAll()
+            .requestMatchers("/content/**").permitAll()
             .requestMatchers("/comments/**").permitAll()
             .requestMatchers("/categories/**").permitAll());
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);

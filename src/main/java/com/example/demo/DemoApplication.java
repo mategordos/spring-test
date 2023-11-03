@@ -1,6 +1,9 @@
 package com.example.demo;
 
 
+import com.example.demo.entity.Role;
+import com.example.demo.entity.User;
+import com.example.demo.enums.RoleName;
 import com.example.demo.repository.RoleRepository;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.service.UserService;
@@ -9,6 +12,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+import java.util.HashSet;
 
 @SpringBootApplication
 public class DemoApplication {

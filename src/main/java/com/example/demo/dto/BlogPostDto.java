@@ -22,8 +22,6 @@ public class BlogPostDto {
 
     Long categoryId;
 
-    String contentFileName;
-
     int score;
 
     int numberOfComments;
@@ -40,7 +38,6 @@ public class BlogPostDto {
                 ", categoryId=" + categoryId +
                 ", authorName=" + authorName +
                 ", lastUpdated=" + lastUpdated +
-                ", contentFileName=" + contentFileName +
                 ", score=" + score +
                 ", numberOfComments=" + numberOfComments +
 //                ", authorId=" + authorId +

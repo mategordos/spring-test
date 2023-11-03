@@ -6,7 +6,6 @@ import AppNavbar from '../appnavbar/AppNavbar';
 import ReactMarkdown from 'react-markdown';
 import "../App.css"
 import Comment from "./Comment";
-import PostRecommendations from "./PostRecommendations";
 import BlogPostCard from "../util/BlogPostCard";
 
 export default function BlogPostPage() {
@@ -20,7 +19,7 @@ export default function BlogPostPage() {
     const [newCommentText, setNewCommentText] = useState('');
     const isLoggedIn = !!localStorage.getItem('jwtToken');
     const [recommendedBlogPosts, setRecommendedBlogPosts] = useState([]);
-
+    const [blogpostContent, setBlogPostContent] = useState();
     const commentButtonActive = showComments ? 'clicked-button' : '';
 
 
@@ -35,47 +34,6 @@ export default function BlogPostPage() {
 
         return filtered.slice(0, count);
     };
-
-    const testContent = "# My Markdown Blog Post\n" +
-        "\n" +
-        "Welcome to my Markdown blog post! In this post, I'll cover some basic formatting and elements that you can use in Markdown to create rich and well-structured content.\n" +
-        "\n" +
-        "## Headings\n" +
-        "\n" +
-        "You can create headings using the `#` symbol. There are six levels of headings, from `#` (largest) to `######` (smallest).\n" +
-        "\n" +
-        "### Subheading\n" +
-        "\n" +
-        "#### Sub-subheading\n" +
-        "\n" +
-        "## Lists\n" +
-        "\n" +
-        "You can create both ordered and unordered lists.\n" +
-        "\n" +
-        "### Unordered List\n" +
-        "- Item 1\n" +
-        "- Item 2\n" +
-        "    - Sub-item 2.1\n" +
-        "    - Sub-item 2.2\n" +
-        "- Item 3\n" +
-        "\n" +
-        "### Ordered List\n" +
-        "1. First item\n" +
-        "2. Second item\n" +
-        "3. Third item\n" +
-        "\n" +
-        "## Emphasis\n" +
-        "\n" +
-        "You can emphasize text using *italics* or **bold**.\n" +
-        "\n" +
-        "## Code\n" +
-        "\n" +
-        "You can format code inline like `const message = 'Hello, World!'`, or you can create code blocks:\n" +
-        "\n" +
-        "```javascript\n" +
-        "function greet() {\n" +
-        "    console.log(\"Hello, World!\");\n" +
-        "}\n"
 
 
     useEffect(() => {
@@ -94,6 +52,12 @@ export default function BlogPostPage() {
                 setBlogPost(response.data);
                 setScore(response.data.score);
 
+                axios
+                    .get(`/content/blogposts/${blogPostId}`)
+                    .then((response) => {
+                        setBlogPostContent(response.data)
+                    })
+
                 const categoryId = response.data.categoryId;
 
                 axios
@@ -105,6 +69,8 @@ export default function BlogPostPage() {
                     .catch((categoryError) => {
                         console.error('Error fetching related blog posts:', categoryError);
                     });
+
+
             })
 
         axios
@@ -187,7 +153,7 @@ export default function BlogPostPage() {
                                     <img className="author-avatar" src={avatarUrl} /> Published by {blogPost.authorName}, {formatDate(blogPost.lastUpdated)}
                                 </p>
                                 <div>
-                                    <ReactMarkdown children={testContent}></ReactMarkdown>
+                                    <ReactMarkdown children={blogpostContent}></ReactMarkdown>
                                 </div>
                             </CardBody>
                         </Card>

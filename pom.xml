@@ -34,8 +34,9 @@
 			<version>2.20.26</version>
 		</dependency>
 		<dependency>
-			<groupId>com.github.ben-manes.caffeine</groupId>
-			<artifactId>caffeine</artifactId>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-cache</artifactId>
+			<version>3.1.4</version>
 		</dependency>
 		<dependency>
 			<groupId>org.postgresql</groupId>

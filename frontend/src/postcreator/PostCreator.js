@@ -19,10 +19,12 @@ export default function PostCreator() {
             <Container className="w-50 pt-4">
                 <TitleItem setTitle={setTitle}/>
                 <CategoryDropdown setSelectedCategory={setSelectedCategory}/>
-                <PostBodyItem/>
+                <PostBodyItem setPostBody={setPostBody}/>
                 <ConfirmButtons
                     title={title}
-                    selectedCategory={selectedCategory}/>
+                    selectedCategory={selectedCategory}
+                    postBody={postBody}
+                />
             </Container>
             </Authorized>
         </div>
@@ -53,17 +55,27 @@ function TitleItem({ setTitle }) {
     );
 }
 
-function PostBodyItem() {
+function PostBodyItem({ setPostBody }) {
+    const handlePostBodyChange = (event) => {
+        setPostBody(event.target.value);
+    };
+
     return (
         <Row className="pt-3 pb-3">
             <Col>
-                <Input type="textarea" placeholder="Share your insights with others.." rows="7" style={{ minHeight: '200px', overflowY: 'scroll'}}/>
+                <Input
+                    type="textarea"
+                    placeholder="Share your insights with others.."
+                    rows="7"
+                    style={{ minHeight: '200px', overflowY: 'scroll' }}
+                    onChange={handlePostBodyChange}
+                />
             </Col>
         </Row>
-    )
+    );
 }
 
-function ConfirmButtons({ title, selectedCategory}) {
+function ConfirmButtons({ title, postBody, selectedCategory}) {
     const history = useHistory();
 
     useEffect(() => {
@@ -83,10 +95,17 @@ function ConfirmButtons({ title, selectedCategory}) {
         axios.post('/blogposts', newBlogPost)
             .then((response) => {
                 console.log('Blog post created:', response.data);
+
+                const blogPostId = response.data.blogPostId;
+
+                axios.post(`/content/blogposts/${blogPostId}`, postBody)
+                    .then((response) => {
+                        console.log('Content set for AWS', response.data)
+                })
+
                 history.push('/')
             })
             .catch((error) => {
-                // Handle errors
                 console.error('Error creating blog post:', error);
             });
     };
