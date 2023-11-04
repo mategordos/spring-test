@@ -78,9 +78,13 @@ export default function UserProfile() {
         const handleDeletePost = (blogPostId) => {
             axios.delete(`/blogposts/${blogPostId}`)
                 .then(() => {
-                    console.log("User deleted successfully");
+                    console.log("BlogPost deleted successfully! ");
                     setBlogPosts(blogPosts.filter(blogPost => blogPost.blogPostId !== blogPostId));
 
+                    axios.delete(`content/blogposts/${blogPostId}`)
+                        .then(()=> {
+                            console.log("Content deleted succesfully!")
+                    })
                 })
                 .catch((error) => {
                     console.error("Error deleting post:", error);

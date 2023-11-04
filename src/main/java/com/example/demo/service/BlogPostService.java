@@ -1,12 +1,12 @@
 package com.example.demo.service;
 
 import com.example.demo.dto.BlogPostDto;
-import com.example.demo.entity.BlogPost;
-import com.example.demo.entity.Category;
-import com.example.demo.entity.User;
+import com.example.demo.entity.*;
 import com.example.demo.repository.BlogPostRepository;
 import com.example.demo.repository.CategoryRepository;
+import com.example.demo.repository.CommentRepository;
 import com.example.demo.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -29,6 +29,9 @@ public class BlogPostService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private CommentRepository commentRepository;
 
 
     public BlogPostDto findBlogPostById(Long blogPostId) {
@@ -97,7 +100,14 @@ public class BlogPostService {
     }
 
 
+    @Transactional
     public void deleteBlogPostById(Long blogPostId) {
+        BlogPost blogPost = blogPostRepository.findById(blogPostId)
+                .orElseThrow(() -> new RuntimeException());
+        Set<User> upvotedBy = new HashSet<>(blogPost.getUpvotedBy());
+        blogPost.getUpvotedBy().removeAll(upvotedBy);
+        commentRepository.deleteByBlogPostId(blogPostId);
+        blogPostRepository.save(blogPost);
         if (!blogPostRepository.existsById(blogPostId)) {
             throw new RuntimeException("Delete attempted, blogPost not found with ID: " + blogPostId);
         }

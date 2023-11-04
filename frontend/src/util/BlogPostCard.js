@@ -7,8 +7,18 @@ import { Link } from "react-router-dom";
 export default function BlogPostCard({ post }) {
     const [categoryName, setCategoryName] = useState('');
     const [formattedDate, setFormattedDate] = useState('');
+    const [postContent, setPostContent] = useState('');
 
     useEffect(() => {
+
+        axios.get(`content/blogposts/${post.blogPostId}`)
+            .then((response) => {
+                setPostContent(response.data);
+            })
+            .catch((error) => {
+                console.error('Error fetching content: ', error)
+            })
+
 
         axios
             .get(`/categories/${post.categoryId}`)
@@ -19,6 +29,7 @@ export default function BlogPostCard({ post }) {
             .catch((error) => {
                 console.error('Error fetching category:', error);
             });
+
 
         // Format the date
         const date = new Date(post.lastUpdated);
@@ -48,7 +59,7 @@ export default function BlogPostCard({ post }) {
                         {categoryName}
                     </CardText>
                     <div className="blogpost-card-text pt-2">
-                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+                        {postContent}
                     </div>
                 </CardBody>
                 <div className="m-lg-3 blogpost-card-text text-decoration-none" >

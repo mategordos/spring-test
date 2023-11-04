@@ -78,14 +78,6 @@ function PostBodyItem({ setPostBody }) {
 function ConfirmButtons({ title, postBody, selectedCategory}) {
     const history = useHistory();
 
-    useEffect(() => {
-        const token = localStorage.getItem('jwtToken');
-
-        if (token) {
-            axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-        }
-    }, []);
-
     const handleSave = () => {
         const newBlogPost = {
             title: title,
@@ -98,7 +90,9 @@ function ConfirmButtons({ title, postBody, selectedCategory}) {
 
                 const blogPostId = response.data.blogPostId;
 
-                axios.post(`/content/blogposts/${blogPostId}`, postBody)
+                axios.post(`/content/blogposts/${blogPostId}`, postBody, {headers: {
+                        "Content-Type": "text/plain"}
+                })
                     .then((response) => {
                         console.log('Content set for AWS', response.data)
                 })

@@ -33,8 +33,9 @@ public class ContentController {
 //        return commentService.findAllCommentsByBlogPostId(blogPostId);
 //    }
 //
-//    @DeleteMapping("/blogposts/{blogPostId}")
-//    public Set<CommentDto> deleteContentByBlogPostId(@PathVariable Long blogPostId) {
-//        return commentService.findAllCommentsByBlogPostId(blogPostId);
-//    }
+    @DeleteMapping("/blogposts/{blogPostId}")
+    public ResponseEntity<String> deleteContentByBlogPostId(@PathVariable Long blogPostId) {
+        s3Service.deleteObject(bucketName, blogPostId+".md");
+        return ResponseEntity.ok("Content deleted for blogpost with id: "+blogPostId);
+    }
 }

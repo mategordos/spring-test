@@ -8,4 +8,6 @@ import java.util.Set;
 public interface CommentRepository extends JpaRepository<Comment, Long> {
     Set<Comment> findByBlogPostId(Long blogPostId);
 
+    void deleteByBlogPostId(Long blogPostId);
+
 }
