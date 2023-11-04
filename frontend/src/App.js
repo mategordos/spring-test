@@ -11,6 +11,7 @@ import BlogPostPage from "./blogpostpage/BlogPostPage";
 import CategorizedBlogPosts from "./categorypage/CategorizedBlogPosts";
 import axios from "axios";
 import SearchPage from "./searchpage/SearchPage";
+import EditPost from "./userprofile/EditPost";
 
 
 
@@ -36,6 +37,7 @@ function App() {
             <Route path='/blogposts/:blogPostId' children={<BlogPostPage/>}/>
             <Route path="/category/:categoryId" children={<CategorizedBlogPosts/>}/>
             <Route path="/search" component={SearchPage}/>
+            <Route path="/edit/:blogPostId" children={<EditPost/>}/>
           </Switch>
         </Router>
     )

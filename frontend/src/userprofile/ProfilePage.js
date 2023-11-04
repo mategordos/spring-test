@@ -13,7 +13,7 @@ import {
 import axios from "axios";
 import AppNavbar from "../appnavbar/AppNavbar";
 import BlogPostCard from "../util/BlogPostCard";
-import {useHistory} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 
 
 
@@ -117,7 +117,7 @@ export default function UserProfile() {
                                     </svg>
                                 </DropdownToggle>
                                 <DropdownMenu>
-                                    <DropdownItem>Edit Post</DropdownItem>
+                                    <DropdownItem tag={Link} to={`/edit/${blogPost.blogPostId}`}>Edit Post</DropdownItem>
                                     <DropdownItem onClick={() => handleDeletePost(blogPost.blogPostId)}>Delete Post</DropdownItem>
                                 </DropdownMenu>
                             </Dropdown>

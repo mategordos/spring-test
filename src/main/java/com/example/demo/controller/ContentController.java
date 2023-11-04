@@ -17,7 +17,7 @@ public class ContentController {
 
 
     @GetMapping("/blogposts/{blogPostId}")
-    public ResponseEntity<byte[]> createContentForBlogPostId(@PathVariable Long blogPostId) {
+    public ResponseEntity<byte[]> getContentByBlogPostId(@PathVariable Long blogPostId) {
         return ResponseEntity.ok(s3Service.getObject(bucketName, blogPostId+".md"));
     }
 
@@ -28,11 +28,12 @@ public class ContentController {
         return ResponseEntity.ok("Content created for blogpost with id: "+blogPostId);
     }
 
-//    @PutMapping("/blogposts/{blogPostId}")
-//    public Set<CommentDto> editContentByBlogPostId(@PathVariable Long blogPostId) {
-//        return commentService.findAllCommentsByBlogPostId(blogPostId);
-//    }
-//
+    @PutMapping("/blogposts/{blogPostId}")
+    public ResponseEntity<String> editContentByBlogPostId(@PathVariable Long blogPostId, @RequestBody String content) {
+        s3Service.putObject(bucketName, blogPostId+".md", content);
+        return ResponseEntity.ok("Content created for blogpost with id: "+blogPostId);
+    }
+
     @DeleteMapping("/blogposts/{blogPostId}")
     public ResponseEntity<String> deleteContentByBlogPostId(@PathVariable Long blogPostId) {
         s3Service.deleteObject(bucketName, blogPostId+".md");

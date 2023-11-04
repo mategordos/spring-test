@@ -1,9 +1,8 @@
-import React, {useEffect, useState} from 'react';
-import {FormGroup, Input, Label} from "reactstrap";
+import React, { useEffect, useState } from 'react';
+import { FormGroup, Input, Label } from "reactstrap";
 import axios from "axios";
 
-
-export default function CategoryDropdown({ setSelectedCategory }) {
+export default function CategoryDropdown({ setSelectedCategory, initialCategory }) {
     const [categories, setCategories] = useState([]);
 
     useEffect(() => {
@@ -18,16 +17,20 @@ export default function CategoryDropdown({ setSelectedCategory }) {
 
     const handleCategorySelect = (id) => {
         setSelectedCategory(id);
-        console.log(id);
     };
 
     return (
         <div>
-            <CategoryDropdownBase categories={categories} onSelectCategory={handleCategorySelect}/>
+            <CategoryDropdownBase
+                categories={categories}
+                onSelectCategory={handleCategorySelect}
+                initialCategory={initialCategory} // Pass the initial category
+            />
         </div>
-    )
+    );
 }
-function CategoryDropdownBase({ categories, onSelectCategory }) {
+
+function CategoryDropdownBase({ categories, onSelectCategory, initialCategory }) {
     const handleCategoryChange = (event) => {
         const selectedCategory = event.target.value;
         onSelectCategory(selectedCategory);
@@ -39,7 +42,11 @@ function CategoryDropdownBase({ categories, onSelectCategory }) {
             <Input type="select" id="categorySelect" onChange={handleCategoryChange}>
                 <option>Select a category..</option>
                 {categories.map((category) => (
-                    <option key={category.id} value={category.id}>
+                    <option
+                        key={category.id}
+                        value={category.id}
+                        selected={category.id === initialCategory} // Set selected option
+                    >
                         {category.categoryName}
                     </option>
                 ))}

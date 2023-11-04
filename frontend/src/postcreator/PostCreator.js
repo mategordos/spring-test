@@ -3,7 +3,7 @@ import AppNavbar from "../appnavbar/AppNavbar";
 import {Button, Col, Container, FormGroup, Input, Label, Row} from "reactstrap";
 import {Link, useHistory} from "react-router-dom";
 import axios from 'axios';
-import CategoryDropdown from "./CategoryDropdown";
+import CategoryDropdown from "../util/CategoryDropdown";
 import Authorized from "../Authorized";
 
 export default function PostCreator() {
