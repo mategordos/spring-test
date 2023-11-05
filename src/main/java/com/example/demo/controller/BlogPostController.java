@@ -32,14 +32,12 @@ public class BlogPostController {
         return new ResponseEntity<>(blogPostDto, HttpStatus.CREATED);
     }
 
-
-    //done
     @GetMapping("")
     public Set<BlogPostDto> findAllBlogPosts(){
         return blogPostService.findAllBlogPosts();
     }
 
-    //done
+
     @GetMapping("/{blogPostId}")
     public ResponseEntity<BlogPostDto> findBlogPostById(@PathVariable Long blogPostId) {
         BlogPostDto blogPostDto = blogPostService.findBlogPostById(blogPostId);

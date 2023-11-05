@@ -52,9 +52,9 @@ public class CategoryController {
         return ResponseEntity.ok("Category deleted: " + categoryId);
     }
 
-    @PutMapping("/{categoryId}")
-    public ResponseEntity<?> updateCategory(@PathVariable Long categoryId, @RequestBody CategoryDto categoryDto) {
-        categoryService.updateCategory(categoryId, categoryDto);
-        return ResponseEntity.ok("Category updated successfully");
-    }
+//    @PutMapping("/{categoryId}")
+//    public ResponseEntity<?> updateCategory(@PathVariable Long categoryId, @RequestBody CategoryDto categoryDto) {
+//        categoryService.updateCategory(categoryId, categoryDto);
+//        return ResponseEntity.ok("Category updated successfully");
+//    }
 }

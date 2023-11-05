@@ -30,12 +30,27 @@ public class SecurityConfig {
             .cors(cors -> cors.disable())
             .sessionManagement(sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests((authz) -> authz
+
+            .requestMatchers(HttpMethod.PUT, "/users/**").hasAuthority("ADMIN")
+            .requestMatchers(HttpMethod.POST,"/users/**").anonymous()
+            .requestMatchers(HttpMethod.DELETE, "/users/**").hasAuthority("ADMIN")
             .requestMatchers("/users/**").permitAll()
-//            .requestMatchers(HttpMethod.DELETE, "/users/**").hasAuthority("ADMIN")
+
+            .requestMatchers(HttpMethod.PUT, "/blogposts/vote/**").permitAll()
+            .requestMatchers(HttpMethod.PUT, "/blogposts/**").hasAuthority("BLOGGER")
             .requestMatchers(HttpMethod.POST,"/blogposts/**").hasAuthority("BLOGGER")
+            .requestMatchers(HttpMethod.DELETE, "/blogposts/**").hasAuthority("BLOGGER")
             .requestMatchers("/blogposts/**").permitAll()
+
+            .requestMatchers(HttpMethod.POST,"/content/**").hasAuthority("BLOGGER")
+            .requestMatchers(HttpMethod.DELETE,"/content/**").hasAuthority("BLOGGER")
+            .requestMatchers(HttpMethod.PUT,"/content/**").hasAuthority("BLOGGER")
             .requestMatchers("/content/**").permitAll()
+
             .requestMatchers("/comments/**").permitAll()
+
+            .requestMatchers(HttpMethod.POST,"/categories/**").hasAuthority("ADMIN")
+            .requestMatchers(HttpMethod.DELETE,"/categories/**").hasAuthority("ADMIN")
             .requestMatchers("/categories/**").permitAll());
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
