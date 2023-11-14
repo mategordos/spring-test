@@ -2,16 +2,12 @@ package com.example.demo.controller;
 
 import com.example.demo.aws.S3Service;
 import com.example.demo.dto.BlogPostDto;
-import com.example.demo.dto.CommentDto;
 import com.example.demo.service.BlogPostService;
-import com.example.demo.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URISyntaxException;
 import java.util.Set;
 
 @RestController
@@ -24,10 +20,8 @@ public class BlogPostController {
     @Autowired
     private S3Service s3;
 
-
-    //done
     @PostMapping("")
-    public ResponseEntity<BlogPostDto> createBlogPost(@RequestBody BlogPostDto blogPostDto) throws URISyntaxException {
+    public ResponseEntity<BlogPostDto> createBlogPost(@RequestBody BlogPostDto blogPostDto) {
             blogPostService.createBlogPost(blogPostDto);
         return new ResponseEntity<>(blogPostDto, HttpStatus.CREATED);
     }
@@ -50,8 +44,6 @@ public class BlogPostController {
         return ResponseEntity.ok(blogPostDto);
     }
 
-
-    //done
     @DeleteMapping("/{blogPostId}")
     public ResponseEntity<?> deleteBlogPost(@PathVariable Long blogPostId) {
         blogPostService.deleteBlogPostById(blogPostId);
@@ -79,7 +71,4 @@ public class BlogPostController {
     public ResponseEntity<Boolean> isPostUpvoted(@PathVariable Long blogPostId) {
         return ResponseEntity.ok(blogPostService.isPostUpvoted(blogPostId));
     }
-
-
-
 }

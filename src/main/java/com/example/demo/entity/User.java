@@ -32,7 +32,7 @@ public class User implements UserDetails {
     Long id;
 
     @Column(unique = true)
-    @Size(min = 3, max = 20)
+    @Size(min = 5, max = 20)
     String name;
 
     @Size(min = 8, max = 20)

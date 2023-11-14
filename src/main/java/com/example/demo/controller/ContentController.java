@@ -13,30 +13,27 @@ public class ContentController {
     @Autowired
     private S3Service s3Service;
 
-    private String bucketName = "blogging-platform-thesis";
+    @PostMapping("/blogposts/{blogPostId}")
+    public ResponseEntity<String> createContentForBlogPostId(@PathVariable Long blogPostId, @RequestBody String content) {
+        s3Service.putObject(blogPostId+".md", content);
+        return ResponseEntity.ok("Content created for blogpost with id: "+blogPostId);
+    }
 
 
     @GetMapping("/blogposts/{blogPostId}")
     public ResponseEntity<byte[]> getContentByBlogPostId(@PathVariable Long blogPostId) {
-        return ResponseEntity.ok(s3Service.getObject(bucketName, blogPostId+".md"));
-    }
-
-
-    @PostMapping("/blogposts/{blogPostId}")
-    public ResponseEntity<String> createContentForBlogPostId(@PathVariable Long blogPostId, @RequestBody String content) {
-        s3Service.putObject(bucketName, blogPostId+".md", content);
-        return ResponseEntity.ok("Content created for blogpost with id: "+blogPostId);
+        return ResponseEntity.ok(s3Service.getObject(blogPostId+".md"));
     }
 
     @PutMapping("/blogposts/{blogPostId}")
     public ResponseEntity<String> editContentByBlogPostId(@PathVariable Long blogPostId, @RequestBody String content) {
-        s3Service.putObject(bucketName, blogPostId+".md", content);
+        s3Service.putObject(blogPostId+".md", content);
         return ResponseEntity.ok("Content created for blogpost with id: "+blogPostId);
     }
 
     @DeleteMapping("/blogposts/{blogPostId}")
     public ResponseEntity<String> deleteContentByBlogPostId(@PathVariable Long blogPostId) {
-        s3Service.deleteObject(bucketName, blogPostId+".md");
+        s3Service.deleteObject(blogPostId+".md");
         return ResponseEntity.ok("Content deleted for blogpost with id: "+blogPostId);
     }
 }

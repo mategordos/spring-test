@@ -11,7 +11,7 @@ export default function BlogPostCard({ post }) {
 
     useEffect(() => {
 
-        axios.get(`content/blogposts/${post.blogPostId}`)
+        axios.get(`/content/blogposts/${post.blogPostId}`)
             .then((response) => {
                 setPostContent(response.data);
             })

@@ -1,11 +1,8 @@
 package com.example.demo.service;
 
-import com.example.demo.dto.BlogPostDto;
 import com.example.demo.dto.LoginDto;
 import com.example.demo.dto.RegistrationDto;
 import com.example.demo.dto.UserDto;
-import com.example.demo.entity.BlogPost;
-import com.example.demo.entity.Category;
 import com.example.demo.entity.Role;
 import com.example.demo.entity.User;
 import com.example.demo.enums.RoleName;
@@ -69,8 +66,9 @@ public class UserService {
             user.setRoles(Collections.singleton(role));
             userRepository.save(user);
             log.info("user successfully saved");
-            String token = jwtUtilities.generateToken(registrationDto.getEmail(),Collections.singleton(role.getRoleName()));
-            log.info("token generated!!:3");
+            String token = jwtUtilities.generateToken(registrationDto.getEmail(),
+                    Collections.singleton(role.getRoleName()));
+            log.info("token generated!");
             return new ResponseEntity<>(token,HttpStatus.OK);
         }
     }
@@ -83,7 +81,8 @@ public class UserService {
                 )
         );
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        User user = userRepository.findByEmail(authentication.getName()).orElseThrow(() -> new UsernameNotFoundException("User not found."));
+        User user = userRepository.findByEmail(authentication.getName())
+                .orElseThrow(() -> new UsernameNotFoundException("User not found."));
         Set<String> rolesNames = new HashSet<>();
         user.getRoles().forEach(r-> rolesNames.add(r.getRoleName()));
         String token = jwtUtilities.generateToken(user.getUsername(),rolesNames);
@@ -120,15 +119,11 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
-
-    //not working needs fix
     @Transactional
     public User updateUserRoles(Long id, UserDto userDto) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found"));
-
         Set<Role> roles = new HashSet<>();
-
         for (String roleName : userDto.getRoleNames()) {
             Role role = roleRepository.findByRoleName(RoleName.valueOf(roleName));
             roles.add(role);

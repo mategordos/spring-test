@@ -17,19 +17,19 @@ public class S3Service {
     @Autowired
     private S3Client s3;
 
-    @CacheEvict("contents")
-    public void putObject(String bucketName, String key, String file) {
+    @CacheEvict(value = "contents", key = "#key")
+    public void putObject(String key, String file) {
         PutObjectRequest objectRequest = PutObjectRequest.builder()
-                .bucket(bucketName)
+                .bucket("blogging-platform-thesis")
                 .key(key)
                 .build();
         s3.putObject(objectRequest, RequestBody.fromString(file));
     }
 
-    @Cacheable("contents")
-    public byte[] getObject(String bucketName, String key) {
+    @Cacheable(value = "contents", key = "#key")
+    public byte[] getObject(String key) {
         GetObjectRequest objectRequest = GetObjectRequest.builder()
-                .bucket(bucketName)
+                .bucket("blogging-platform-thesis")
                 .key(key)
                 .build();
         ResponseBytes<GetObjectResponse> responseResponseBytes = s3.getObjectAsBytes(objectRequest);
@@ -38,9 +38,9 @@ public class S3Service {
         return data;
     }
 
-    @CacheEvict("contents")
-    public void deleteObject(String bucketName, String key) {
-        DeleteObjectRequest deleteObjectRequest = DeleteObjectRequest.builder().bucket(bucketName).key(key).build();
+    @CacheEvict(value = "contents", key = "#key")
+    public void deleteObject(String key) {
+        DeleteObjectRequest deleteObjectRequest = DeleteObjectRequest.builder().bucket("blogging-platform-thesis").key(key).build();
         s3.deleteObject(deleteObjectRequest);
 
     }

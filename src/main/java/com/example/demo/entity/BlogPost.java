@@ -42,7 +42,4 @@ public class BlogPost {
     @OneToMany(mappedBy = "blogPost")
     Set<Comment> comments;
 
-
-
-
 }

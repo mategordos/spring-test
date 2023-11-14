@@ -13,4 +13,6 @@ public interface BlogPostRepository extends JpaRepository<BlogPost, Long> {
 
     @Query("SELECT bp FROM BlogPost bp WHERE LOWER(bp.title) LIKE LOWER(CONCAT('%', :keyword, '%'))")
     Set<BlogPost> searchByTitleIgnoreCase(@Param("keyword") String keyword);
+
+    void deleteByCategoryId(Long categoryId);
 }

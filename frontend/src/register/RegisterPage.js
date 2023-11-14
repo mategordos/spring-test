@@ -101,7 +101,7 @@ export default function RegisterPage() {
                                     </InputGroup>
                                     </FormGroup>
                                     <div className="text-center">
-                                        <Button type="submit" color="primary" className="mt-5" >Login</Button>
+                                        <Button type="submit" color="primary" className="mt-5" >Register</Button>
                                     </div>
                                 </Form>
                             </CardBody>

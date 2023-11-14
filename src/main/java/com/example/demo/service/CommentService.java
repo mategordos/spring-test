@@ -50,16 +50,12 @@ public class CommentService {
     public CommentDto createComment(Long blogPostId, CommentDto commentDto) {
         BlogPost blogPost = blogPostRepository.findById(blogPostId)
                 .orElseThrow(() -> new RuntimeException("Blogpost not found with id: " + blogPostId));
-        log.info(blogPost.toString());
         Comment comment = new Comment();
         comment.setContent(commentDto.getContent());
         comment.setCommenter(userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName())
                 .orElseThrow(() -> new UsernameNotFoundException("User not found")));
         comment.setBlogPost(blogPost);
-
-        log.info(comment.toString());
         commentRepository.save(comment);
-
         return commentDto;
     }
 }

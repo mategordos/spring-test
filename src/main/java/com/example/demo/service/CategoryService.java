@@ -4,7 +4,9 @@ import com.example.demo.dto.BlogPostDto;
 import com.example.demo.dto.CategoryDto;
 import com.example.demo.entity.BlogPost;
 import com.example.demo.entity.Category;
+import com.example.demo.repository.BlogPostRepository;
 import com.example.demo.repository.CategoryRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.HashSet;
@@ -16,6 +18,8 @@ public class CategoryService {
     @Autowired
     private CategoryRepository categoryRepository;
 
+    @Autowired
+    private BlogPostRepository blogPostRepository;
 
     public CategoryDto createCategory(CategoryDto categoryDto) {
         Category category = new Category();
@@ -49,15 +53,15 @@ public class CategoryService {
             blogPostDto.setNumberOfComments(blogPost.getComments().size());
             blogPostDtos.add(blogPostDto);
         }
-
         return blogPostDtos;
     }
 
+    @Transactional
     public void deleteCategoryById(Long categoryId) {
         if (!categoryRepository.existsById(categoryId)) {
             throw new RuntimeException("Delete attempted, category not found with ID: " + categoryId);
         }
-
+        blogPostRepository.deleteByCategoryId(categoryId);
         categoryRepository.deleteById(categoryId);
     }
 
@@ -80,7 +84,6 @@ public class CategoryService {
     public void updateCategory(Long categoryId, CategoryDto categoryDto) {
         Category category = categoryRepository.findById(categoryId)
                 .orElseThrow(() -> new RuntimeException("Category not found with id: " + categoryId));
-
         category.setCategoryName(categoryDto.getCategoryName());
         categoryRepository.save(category);
     }

@@ -36,7 +36,7 @@ public class SecurityConfig {
             .requestMatchers(HttpMethod.DELETE, "/users/**").hasAuthority("ADMIN")
             .requestMatchers("/users/**").permitAll()
 
-            .requestMatchers(HttpMethod.PUT, "/blogposts/vote/**").permitAll()
+            .requestMatchers(HttpMethod.PUT, "/blogposts/vote/**").hasAnyAuthority("USER","BLOGGER","ADMIN")
             .requestMatchers(HttpMethod.PUT, "/blogposts/**").hasAuthority("BLOGGER")
             .requestMatchers(HttpMethod.POST,"/blogposts/**").hasAuthority("BLOGGER")
             .requestMatchers(HttpMethod.DELETE, "/blogposts/**").hasAuthority("BLOGGER")
@@ -47,9 +47,11 @@ public class SecurityConfig {
             .requestMatchers(HttpMethod.PUT,"/content/**").hasAuthority("BLOGGER")
             .requestMatchers("/content/**").permitAll()
 
+            .requestMatchers(HttpMethod.POST,"/comments/**").hasAnyAuthority("USER","BLOGGER","ADMIN")
             .requestMatchers("/comments/**").permitAll()
 
             .requestMatchers(HttpMethod.POST,"/categories/**").hasAuthority("ADMIN")
+            .requestMatchers(HttpMethod.PUT,"/categories/**").hasAuthority("ADMIN")
             .requestMatchers(HttpMethod.DELETE,"/categories/**").hasAuthority("ADMIN")
             .requestMatchers("/categories/**").permitAll());
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);

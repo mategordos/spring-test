@@ -31,4 +31,5 @@ public class Category {
 
     @OneToMany(mappedBy = "category")
     Set<BlogPost> blogPosts = new HashSet<>();
+
 }

@@ -23,9 +23,9 @@ export default function CategorizedBlogPosts() {
         <div>
             <AppNavbar/>
             <Container className="w-50">
-            {blogPosts.map((blogPost) => (
-                <BlogPostCard key={blogPost.id} post={blogPost} />
-            ))}
+                {blogPosts.map((blogPost) => (
+                    <BlogPostCard key={blogPost.id} post={blogPost} />
+                ))}
             </Container>
         </div>
     );

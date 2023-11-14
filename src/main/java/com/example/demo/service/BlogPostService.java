@@ -82,8 +82,6 @@ public class BlogPostService {
         blogPostDto.setCategoryId(blogPost2.getCategory().getId());
         blogPostDto.setTitle(blogPost2.getTitle());
         blogPostDto.setAuthorName(blogPost2.getAuthor().getName());
-
-        log.info("Blogpost id"+blogPost.getId());
         return blogPostDto;
     }
 
